@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security - The Visual Vault</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .security-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .security-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ff6b95;
+        }
+
+        .security-header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .security-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .security-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .security-section h2 {
+            color: #ff6b95;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .security-section h2 i {
+            font-size: 0.9em;
+        }
+
+        .security-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .security-section ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .security-section ul li {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .security-section ul li i {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: #ff6b95;
+        }
+
+        .security-alert {
+            background: #fff3f5;
+            border-left: 4px solid #ff6b95;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .security-alert h3 {
+            color: #ff6b95;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .security-contact {
+            background: #f0f9ff;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .security-contact h3 {
+            color: #ff6b95;
+            margin-bottom: 15px;
+        }
+
+        .security-contact .contact-button {
+            display: inline-block;
+            background: #ff6b95;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+
+        .security-contact .contact-button:hover {
+            background: #ff4f7b;
+            transform: translateY(-2px);
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6b95;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #ff4f7b;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="security-container">
+        <div class="security-header">
+            <h1>Security at The Visual Vault</h1>
+            <p>Your security is our top priority</p>
+        </div>
+
+        <div class="security-section">
+            <h2><i class="fas fa-shield-alt"></i> Our Security Commitment</h2>
+            <p>At The Visual Vault, we take the security of your data and privacy seriously. We employ industry-standard security measures to protect your information and ensure a safe experience on our platform.</p>
+        </div>
+
+        <div class="security-section">
+            <h2><i class="fas fa-lock"></i> Data Protection</h2>
+            <ul>
+                <li><i class="fas fa-check"></i> End-to-end encryption for all sensitive data</li>
+                <li><i class="fas fa-check"></i> Regular security audits and penetration testing</li>
+                <li><i class="fas fa-check"></i> Secure data centers with 24/7 monitoring</li>
+                <li><i class="fas fa-check"></i> Regular backup and disaster recovery procedures</li>
+            </ul>
+        </div>
+
+        <div class="security-section">
+            <h2><i class="fas fa-user-shield"></i> Account Security</h2>
+            <ul>
+                <li><i class="fas fa-check"></i> Two-factor authentication support</li>
+                <li><i class="fas fa-check"></i> Strong password requirements</li>
+                <li><i class="fas fa-check"></i> Session management and automatic timeouts</li>
+                <li><i class="fas fa-check"></i> Login attempt monitoring and protection</li>
+            </ul>
+        </div>
+
+        <div class="security-alert">
+            <h3><i class="fas fa-exclamation-triangle"></i> Stay Safe Online</h3>
+            <p>To help protect your account:</p>
+            <ul>
+                <li><i class="fas fa-check"></i> Use a strong, unique password</li>
+                <li><i class="fas fa-check"></i> Enable two-factor authentication</li>
+                <li><i class="fas fa-check"></i> Never share your login credentials</li>
+                <li><i class="fas fa-check"></i> Be cautious of phishing attempts</li>
+            </ul>
+        </div>
+
+        <div class="security-section">
+            <h2><i class="fas fa-certificate"></i> Compliance</h2>
+            <p>We adhere to international security standards and best practices:</p>
+            <ul>
+                <li><i class="fas fa-check"></i> GDPR compliant</li>
+                <li><i class="fas fa-check"></i> SSL/TLS encryption</li>
+                <li><i class="fas fa-check"></i> Regular security assessments</li>
+                <li><i class="fas fa-check"></i> Industry standard protocols</li>
+            </ul>
+        </div>
+
+        <div class="security-contact">
+            <h3>Report a Security Issue</h3>
+            <p>If you discover a security vulnerability or have concerns about your account security, please contact our security team immediately.</p>
+            <a href="mailto:security@visualvault.com" class="contact-button">
+                <i class="fas fa-envelope"></i> Contact Security Team
+            </a>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <footer>
+        <div class="corporation">
+            <a href="legal.html">Legal Stuff</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="security.html">Security</a>
+            <a href="accessibility.html">Website Accessibility</a>
+            <a href="cookies.html">Manage Cookies</a> 
+            <br>
+            <div class="c">
+              Copyright  &#169; 2024 The Visual Vault, Inc.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

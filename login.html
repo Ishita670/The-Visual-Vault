@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - The Visual Vault</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .auth-container {
+            max-width: 400px;
+            margin: 120px auto 50px;
+            padding: 2rem;
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-header h1 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .form-group input {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .auth-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .auth-btn:hover {
+            background-color: #ff4d7e;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+        
+        .auth-footer a {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1>The Visual Vault</h1>
+                <!-- <img src="assets/camera-icon.svg" alt="Logo" class="logo-icon"> -->
+            </div>
+            <nav>
+                <input type="checkbox" id="sidebar-active">
+                <button class="open-sidebar-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="links-container">
+                    <button class="close-sidebar-button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="socials.html">Socials</a></li>
+                    <li><a href="login.html" class="active">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                </ul>
+                <button id="darkModeToggle" class="dark-mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <main>
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to continue to your account</p>
+            </div>
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="auth-btn">Login</button>
+                <div id="errorMessage" class="error-message"></div>
+            </form>
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script>
+        // Dark mode toggle functionality
+        function setupDarkModeToggle() {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            
+            // Check for saved dark mode preference
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            
+            // Set initial dark mode state
+            if (isDarkMode) {
+                body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+            
+            // Toggle dark mode
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDarkModeNow = body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkModeNow);
+                darkModeToggle.innerHTML = isDarkModeNow ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+        }
+
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Hide any previous error messages
+            errorMessage.style.display = 'none';
+            
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            // Find user
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                // Store current user in localStorage
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            } else {
+                // Display error message
+                errorMessage.textContent = 'Invalid username or password';
+                errorMessage.style.display = 'block';
+            }
+        });
+        
+        // Initialize dark mode
+        document.addEventListener('DOMContentLoaded', setupDarkModeToggle);
+    </script>
+</body>
+</html>

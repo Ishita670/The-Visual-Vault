@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - The Visual Vault</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #ff6b95;
+            --secondary-color: #ff4f7b;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #fff;
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #ff6b95;
+            --secondary-color: #ff4f7b;
+            --text-color: #fff;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --border-color: #404040;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            font-size: 25px;
+            position: fixed;
+            top: 0;
+            z-index: 20;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-right: 39px;
+        }
+
+        .logo h1 {
+            color: var(--text-color);
+        }
+
+        .logo-icon {
+            fill: var(--primary-color);
+        }
+
+        .links-container a {
+            color: var(--text-color);
+        }
+
+        .links-container {
+            display: flex;
+            gap: 2rem;
+            padding-right: 39px;
+            margin: 0;
+        }
+
+        .links-container a:hover {
+            color: var(--secondary-color);
+        }
+
+        .mission-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .mission-card i {
+            color: var(--primary-color);
+        }
+
+        .mission-card h2 {
+            color: var(--text-color);
+        }
+
+        .mission-card p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .team-member {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .team-member-info h3 {
+            color: var(--text-color);
+        }
+
+        .team-member-info p {
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+
+        .cta-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-button {
+            background-color: var(--primary-color);
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .footer-content {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-bottom {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 10px;
+            transition: color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .container {
+            display: flex;
+            position: relative;
+            top: 80px;
+            padding-top: 95px;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .text {
+            margin-left: 10%;
+            width: 570px;
+            max-width: 90%;
+        }
+
+        .heading {
+            font-size: 66px;
+            font-family: "DM Serif Display", serif;
+            font-weight: 400;
+            padding-bottom: 20px;
+            letter-spacing: -1px;
+            color: #2E3135;
+        }
+
+        .p1 {
+            font-size: 16px;
+            line-height: 1.6;
+            width: 100%;
+            max-width: 513px;
+            font-family: "Lato", sans-serif;
+        }
+
+        .image {
+            margin-right: 10%;
+            width: 570px;
+            max-width: 90%;
+            height: auto;
+            aspect-ratio: 570/597;
+            display: flex;
+            justify-content: center;
+            border: 7px solid #C4DAD2;
+        }
+
+        .image img {
+            width: 100%;
+            height: auto;
+            margin: 41px 0;
+        }
+
+        .hr {
+            margin: 166px 0 55px;
+            border: 0;
+            height: 1px;
+            background-color: #C4DAD2;
+        }
+
+        .testimonails {
+            margin-left: 10%;
+            margin-bottom: 40px;
+            font-size: 55px;
+            font-family: "DM Serif Display", serif;
+            font-weight: 400;
+        }
+
+        #myCarousel {
+            background-image: linear-gradient(to right, #ffe3e3, #ffe9e4, #ffeee7, #fef4ec, #fef9f2);
+            display: flex;
+            height: 350px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-box {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            background-image: linear-gradient(to right bottom, #dc2e4b, #e31662, #e6007b, #e20098, #d714b6);
+            filter: blur(1.5rem);
+            opacity: 0.8;
+            display: flex;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .review {
+            width: 168px;
+            height: 168px;
+            object-fit: cover;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .name,
+        .role {
+            position: relative;
+            left: 20%;
+        }
+
+        svg {
+            width: 12px;
+        }
+
+        .quote-box {
+            display: flex;
+            justify-content: center;
+        }
+
+        .carousel-indicators li {
+            border: 1px solid red;
+        }
+
+        .carousel-indicators .active {
+            background-color: #7E6363;
+            border: 2px solid red;
+        }
+
+        .testimonial {
+            font-size: 15px;
+            color: #333333;
+            font-family: "Playwrite DE Grund", cursive;
+        }
+
+        .overview {
+            font-size: 20px;
+            font-family: "DM Serif Display", serif;
+            font-weight: 400;
+        }
+
+        .client span {
+            color: grey;
+        }
+
+        footer {
+            margin-top: 10px;
+            box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer .corporation {
+            background-color: #1A202C;
+            color: white;
+            width: 100%;
+            height: 140px;
+            font-size: 20px;
+            gap: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .corporation a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .corporation a:hover {
+            text-decoration: underline;
+        }
+
+        /* User Testimonial Form Styles */
+        .add-testimonial {
+            margin: 80px auto;
+            max-width: 800px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .add-testimonial .heading {
+            font-size: 48px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: "Lato", sans-serif;
+            color: #2E3135;
+            font-size: 16px;
+        }
+
+        .form-group input[type="text"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #C4DAD2;
+            border-radius: 4px;
+            font-family: "Lato", sans-serif;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background-color: #bac8ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-family: "Playfair Display SC", serif;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #9aa8e6;
+        }
+
+        #thankYouMessage {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            font-family: "Lato", sans-serif;
+            color: #2E3135;
+            display: none;
+        }
+
+        .add-more-btn {
+            background-color: #C4DAD2;
+            color: #2E3135;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            font-family: "Playfair Display SC", serif;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: none;
+        }
+
+        .add-more-btn:hover {
+            background-color: #a8c2b8;
+        }
+
+        .remove-btn {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background-color: #ff5252;
+        }
+
+        .testimonial-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        /* Default image for testimonials without photos */
+        .default-user-img {
+            background-color: #bac8ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 60px;
+            font-family: "DM Serif Display", serif;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .text, .image {
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .heading {
+                font-size: 48px;
+            }
+            
+            .testimonails {
+                font-size: 40px;
+            }
+            
+            .links-container {
+                padding-right: 20px;
+                gap: 1rem;
+            }
+            
+            .add-testimonial .heading {
+                font-size: 36px;
+            }
+
+            #myCarousel {
+                height: auto;
+                padding: 20px 0;
+            }
+
+            .image-container {
+                margin-bottom: 20px;
+            }
+
+            .quote-box {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heading {
+                font-size: 36px;
+            }
+            
+            .navbar {
+                font-size: 20px;
+            }
+            
+            .p1 {
+                font-size: 14px;
+            }
+            
+            .add-testimonial .heading {
+                font-size: 28px;
+            }
+            
+            .submit-btn, .add-more-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .testimonial-actions {
+                flex-direction: column;
+            }
+
+            .img-box, .review {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1>The Visual Vault</h1>
+                <svg class="logo-icon" fill="#ff6b95" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 349.078 349.078">
+                    <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643 c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455 c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44 C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186 c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023 c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605 v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455 c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"></path>
+                </svg>
+            </div>
+            <nav>
+                <input type="checkbox" id="sidebar-active">
+                <label for="sidebar-active" class="open-sidebar-button">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul class="links-container">
+                    <label for="sidebar-active" class="close-sidebar-button">
+                        <i class="fas fa-times"></i>
+                    </label>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="socials.html">Socials</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li class="user-profile">
+                        <div class="user-icon">
+                            <a href="dashboard.html"><i class="fas fa-user"></i></a>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="theme-toggle" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="text">
+                <h2 class="heading">
+                    Hello! We are <br><span class="logo">The Visual Vault!</span>
+                </h2>
+                <p class="p1">
+                    A photo can reveal more about a person than you might have thought. Just like looking in the eyes,
+                    photography can reveal your soul. What's more, a picture can bear different meanings.
+                </p>
+                <p class="p1">
+                    &nbsp;
+                </p>
+                <p class="p1">
+                    Photography is more than just a moment captured by a camera. This is a special form of art with its
+                    own history and philosophy. Having a passion for creating static and dynamic images, we have made up
+                    a truly rich and creative photo gallery.
+                </p>
+            </div>
+            <div class="image">
+                <div class="image1">
+                    <img src="Plant.png" alt="#">
+                </div>
+            </div>
+        </div>
+        <hr class="hr">
+        <div class="testimonails">
+            <h2 class="heading">
+                Testimonials
+            </h2>
+        </div>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <!-- Indicators -->
+            <ol class="carousel-indicators" id="carouselIndicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active" style="background-color: aqua;"></li>
+                <li data-target="#myCarousel" data-slide-to="1" style="background-color: aqua;"></li>
+                <li data-target="#myCarousel" data-slide-to="2" style="background-color: aqua;"></li>
+            </ol>
+          
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" id="testimonialContainer">
+                <!-- Default testimonials -->
+                <div class="item active" data-id="default1">
+                    <div class="image-container">
+                        <div class="img-box"></div>
+                        <img class="review" src="navreet.jpg" alt="Navreet">
+                    </div>
+                    <div class="quote-box">
+                        <div class="qoute">
+                            <iconify-icon icon="bxs:quote-left" width="24" height="24" class="svg" style="color: violet"></iconify-icon>
+                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. <br> Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
+                            <p class="overview"><b>NAVREET</b>, Client</p>
+                            <button class="remove-btn" data-id="default1">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item" data-id="default2">
+                    <div class="image-container">
+                        <div class="img-box"></div>
+                        <img class="review" src="mehak.jpg" alt="Mehak">
+                    </div>
+                    <div class="quote-box">
+                        <div class="qoute">
+                            <iconify-icon icon="bxs:quote-left" width="24" height="24" style="color: violet"></iconify-icon>
+                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. <br> Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
+                            <p class="overview"><b>MEHAK</b>, Client</p>
+                            <button class="remove-btn" data-id="default2">Remove</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="item" data-id="default3">
+                    <div class="image-container">
+                        <div class="img-box"></div>
+                        <img class="review" src="hh.jpg" alt="Niyati">
+                    </div>
+                    <div class="quote-box">
+                        <div class="qoute">
+                            <iconify-icon icon="bxs:quote-left" width="24" height="24" style="color:violet"></iconify-icon>
+                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. <br> Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
+                            <p class="overview"><b>NIYATI</b>, Client</p>
+                            <button class="remove-btn" data-id="default3">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Carousel controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        
+        <!-- Testimonial Form Section -->
+        <div class="add-testimonial">
+            <h2 class="heading">Share Your Experience</h2>
+            <form id="testimonialForm">
+                <div class="form-group">
+                    <label for="userName">Your Name:</label>
+                    <input type="text" id="userName" name="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userRole">Your Role (optional):</label>
+                    <input type="text" id="userRole" name="userRole" placeholder="Client, Customer, etc.">
+                </div>
+                <div class="form-group">
+                    <label for="userTestimonial">Your Testimonial:</label>
+                    <textarea id="userTestimonial" name="userTestimonial" rows="4" required placeholder="Share your experience with us..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="userImage">Upload Your Photo (optional):</label>
+                    <input type="file" id="userImage" name="userImage" accept="image/*">
+                </div>
+                <div class="testimonial-actions">
+                    <button type="submit" class="submit-btn">Submit Testimonial</button>
+                    <button type="button" class="add-more-btn" id="addMoreBtn">Add Another Testimonial</button>
+                </div>
+            </form>
+            <div id="thankYouMessage">
+                <p>Thank you for your testimonial! It has been added to our carousel.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="corporation">
+            <a href="legal.html">Legal Stuff</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="security.html">Security</a>
+            <a href="accessibility.html">Website Accessibility</a>
+            <a href="cookies.html">Manage Cookies</a> 
+            <br>
+            <div class="c">
+              Copyright  &#169; 2024 The Visual Vault, Inc.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateIcon(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+
+        function updateIcon(theme) {
+            icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const testimonialForm = document.getElementById('testimonialForm');
+            const thankYouMessage = document.getElementById('thankYouMessage');
+            const addMoreBtn = document.getElementById('addMoreBtn');
+            const testimonialContainer = document.getElementById('testimonialContainer');
+            const carouselIndicators = document.getElementById('carouselIndicators');
+            
+            // Check if we're coming back from a form submission
+            const formState = localStorage.getItem('testimonialFormState');
+            if (formState === 'submitted') {
+                testimonialForm.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                addMoreBtn.style.display = 'inline-block';
+                localStorage.removeItem('testimonialFormState');
+            }
+            
+            // Load testimonials from localStorage
+            loadTestimonials();
+            
+            // Form submission handler
+            testimonialForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const userName = document.getElementById('userName').value;
+                const userRole = document.getElementById('userRole').value || 'Client';
+                const userTestimonial = document.getElementById('userTestimonial').value;
+                const userImageInput = document.getElementById('userImage');
+                
+                // Create unique ID for the testimonial
+                const testimonialId = 'user-' + Date.now();
+                
+                // Handle image upload
+                let imageUrl = '';
+                if (userImageInput.files.length > 0) {
+                    const file = userImageInput.files[0];
+                    imageUrl = URL.createObjectURL(file);
+                } else {
+                    // Create default avatar with initials
+                    const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+                    imageUrl = createInitialsAvatar(initials, testimonialId);
+                }
+                
+                // Create testimonial object
+                const testimonial = {
+                    id: testimonialId,
+                    name: userName,
+                    role: userRole,
+                    text: userTestimonial,
+                    image: imageUrl,
+                    isDefault: false,
+                    timestamp: Date.now()
+                };
+                
+                // Save to localStorage
+                saveTestimonial(testimonial);
+                
+                // Add to carousel
+                addTestimonialToCarousel(testimonial);
+                
+                // Show thank you message
+                testimonialForm.reset();
+                testimonialForm.style.display = 'none';
+                thankYouMessage.style.display = 'block';
+                addMoreBtn.style.display = 'inline-block';
+                
+                // Remember form state for page refresh
+                localStorage.setItem('testimonialFormState', 'submitted');
+                
+                // Scroll to thank you message
+                thankYouMessage.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Add more button handler
+            addMoreBtn.addEventListener('click', function() {
+                testimonialForm.style.display = 'block';
+                thankYouMessage.style.display = 'none';
+                addMoreBtn.style.display = 'none';
+                testimonialForm.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Remove testimonial handler (delegated event)
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-btn')) {
+                    const testimonialId = e.target.getAttribute('data-id');
+                    if (confirm('Are you sure you want to remove this testimonial?')) {
+                        // Find the carousel item to remove
+                        const itemToRemove = document.querySelector(`.item[data-id="${testimonialId}"]`);
+                        
+                        if (itemToRemove) {
+                            // If removing the active item, activate the next one
+                            if (itemToRemove.classList.contains('active')) {
+                                const nextItem = itemToRemove.nextElementSibling || testimonialContainer.firstElementChild;
+                                if (nextItem) {
+                                    nextItem.classList.add('active');
+                                    // Update the active indicator
+                                    const slideTo = nextItem.getAttribute('data-slide-to') || 
+                                                  Array.from(testimonialContainer.children).indexOf(nextItem);
+                                    $(carouselIndicators).find('li').removeClass('active');
+                                    $(carouselIndicators).find(`li[data-slide-to="${slideTo}"]`).addClass('active');
+                                }
+                            }
+                            
+                            // Remove the item
+                            itemToRemove.remove();
+                            
+                            // Remove from localStorage if it's a user testimonial
+                            if (testimonialId.startsWith('user-')) {
+                                let testimonials = JSON.parse(localStorage.getItem('testimonials')) || [];
+                                testimonials = testimonials.filter(t => t.id !== testimonialId);
+                                localStorage.setItem('testimonials', JSON.stringify(testimonials));
+                            }
+                            
+                            // Update carousel indicators
+                            updateCarouselIndicators();
+                        }
+                    }
+                }
+            });
+            
+            // Function to create initials avatar
+            function createInitialsAvatar(initials, id) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 200;
+                canvas.height = 200;
+                const ctx = canvas.getContext('2d');
+                
+                // Background color based on id hash
+                const colors = ['#bac8ff', '#c4dad2', '#ffd6a5', '#ffaaa5', '#a5ffd6'];
+                const colorIndex = parseInt(id.replace(/\D/g, '')) % colors.length;
+                ctx.fillStyle = colors[colorIndex];
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw initials
+                ctx.font = 'bold 80px DM Serif Display';
+                ctx.fillStyle = '#2E3135';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(initials, canvas.width/2, canvas.height/2);
+                
+                return canvas.toDataURL();
+            }
+            
+            // Function to save testimonial to localStorage
+            function saveTestimonial(testimonial) {
+                let testimonials = JSON.parse(localStorage.getItem('testimonials')) || [];
+                
+                // Filter out any existing testimonial with same ID
+                testimonials = testimonials.filter(t => t.id !== testimonial.id);
+                
+                testimonials.push(testimonial);
+                localStorage.setItem('testimonials', JSON.stringify(testimonials));
+            }
+            
+            // Function to load testimonials from localStorage
+            function loadTestimonials() {
+                const testimonials = JSON.parse(localStorage.getItem('testimonials')) || [];
+                
+                // Sort by timestamp (newest first)
+                testimonials.sort((a, b) => b.timestamp - a.timestamp);
+                
+                // Filter out default testimonials (we handle those separately)
+                const userTestimonials = testimonials.filter(t => !t.isDefault);
+                
+                userTestimonials.forEach(testimonial => {
+                    addTestimonialToCarousel(testimonial);
+                });
+            }
+            
+            // Function to add testimonial to carousel
+            function addTestimonialToCarousel(testimonial) {
+                // Create new carousel item
+                const newItem = document.createElement('div');
+                newItem.className = 'item';
+                newItem.setAttribute('data-id', testimonial.id);
+                
+                // Create image container
+                const imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
+                
+                const imgBox = document.createElement('div');
+                imgBox.className = 'img-box';
+                
+                const reviewImg = document.createElement('img');
+                reviewImg.className = 'review';
+                reviewImg.src = testimonial.image;
+                reviewImg.alt = testimonial.name;
+                
+                imgContainer.appendChild(imgBox);
+                imgContainer.appendChild(reviewImg);
+                
+                // Create quote box
+                const quoteBox = document.createElement('div');
+                quoteBox.className = 'quote-box';
+                
+                const quoteDiv = document.createElement('div');
+                quoteDiv.className = 'qoute';
+                
+                const quoteIcon = document.createElement('iconify-icon');
+                quoteIcon.setAttribute('icon', 'bxs:quote-left');
+                quoteIcon.setAttribute('width', '24');
+                quoteIcon.setAttribute('height', '24');
+                quoteIcon.style.color = 'violet';
+                
+                const testimonialText = document.createElement('p');
+                testimonialText.className = 'testimonial';
+                testimonialText.textContent = testimonial.text;
+                
+                const overviewText = document.createElement('p');
+                overviewText.className = 'overview';
+                overviewText.innerHTML = `<b>${testimonial.name.toUpperCase()}</b>, ${testimonial.role}`;
+                
+                const removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-btn';
+                removeBtn.textContent = 'Remove';
+                removeBtn.setAttribute('data-id', testimonial.id);
+                
+                quoteDiv.appendChild(quoteIcon);
+                quoteDiv.appendChild(testimonialText);
+                quoteDiv.appendChild(overviewText);
+                quoteDiv.appendChild(removeBtn);
+                quoteBox.appendChild(quoteDiv);
+                
+                // Assemble the new item
+                newItem.appendChild(imgContainer);
+                newItem.appendChild(quoteBox);
+                
+                // Add to carousel (after default testimonials)
+                testimonialContainer.insertBefore(newItem, testimonialContainer.children[3] || null);
+                
+                // Update carousel indicators
+                updateCarouselIndicators();
+            }
+            
+            // Function to update carousel indicators
+            function updateCarouselIndicators() {
+                // Clear existing indicators (except the default ones for default testimonials)
+                while (carouselIndicators.children.length > 3) {
+                    carouselIndicators.removeChild(carouselIndicators.lastChild);
+                }
+                
+                // Count user-added testimonials
+                const items = testimonialContainer.querySelectorAll('.item');
+                const userTestimonialCount = items.length - 3;
+                
+                // Add indicators for user-added testimonials
+                for (let i = 0; i < userTestimonialCount; i++) {
+                    const li = document.createElement('li');
+                    li.setAttribute('data-target', '#myCarousel');
+                    li.setAttribute('data-slide-to', i + 3); // Offset by default testimonials
+                    li.style.backgroundColor = 'aqua';
+                    carouselIndicators.appendChild(li);
+                }
+                
+                // Set data-slide-to attributes on items to match indicators
+                items.forEach((item, index) => {
+                    item.setAttribute('data-slide-to', index);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

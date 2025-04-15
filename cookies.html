@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Settings - The Visual Vault</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .cookies-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cookies-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ff6b95;
+        }
+
+        .cookies-header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .cookies-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .cookies-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .cookies-section h2 {
+            color: #ff6b95;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cookies-section h2 i {
+            font-size: 0.9em;
+        }
+
+        .cookies-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .cookie-type {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .cookie-type h3 {
+            color: #ff6b95;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #ff6b95;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .cookie-info {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-detail {
+            flex: 1;
+            min-width: 200px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .cookie-detail h4 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .cookie-detail p {
+            color: #666;
+            font-size: 0.9em;
+            margin: 0;
+        }
+
+        .save-preferences {
+            background: #ff6b95;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 30px auto;
+            font-weight: 600;
+        }
+
+        .save-preferences:hover {
+            background: #ff4f7b;
+            transform: translateY(-2px);
+        }
+
+        .save-preferences:disabled {
+            background: #ffb5c9;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .cookie-notice {
+            background: #fff3f5;
+            border-left: 4px solid #ff6b95;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .cookie-notice h3 {
+            color: #ff6b95;
+            margin-bottom: 10px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6b95;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #ff4f7b;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="cookies-container">
+        <div class="cookies-header">
+            <h1>Cookie Settings</h1>
+            <p>Control how we use cookies on The Visual Vault</p>
+        </div>
+
+        <div class="cookies-section">
+            <h2><i class="fas fa-cookie-bite"></i> About Cookies</h2>
+            <p>We use cookies and similar technologies to help personalize content, improve your experience, and analyze how our site is used. You can choose which types of cookies you allow.</p>
+            
+            <div class="cookie-notice">
+                <h3><i class="fas fa-info-circle"></i> Important Notice</h3>
+                <p>Essential cookies cannot be disabled as they are required for the website to function properly.</p>
+            </div>
+        </div>
+
+        <div class="cookies-section">
+            <h2><i class="fas fa-sliders-h"></i> Cookie Preferences</h2>
+            
+            <div class="cookie-type">
+                <h3>
+                    Essential Cookies
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="slider"></span>
+                    </label>
+                </h3>
+                <p>These cookies are necessary for the website to function and cannot be switched off.</p>
+                <div class="cookie-info">
+                    <div class="cookie-detail">
+                        <h4>Purpose</h4>
+                        <p>Basic site functionality and security</p>
+                    </div>
+                    <div class="cookie-detail">
+                        <h4>Duration</h4>
+                        <p>Session - 1 year</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cookie-type">
+                <h3>
+                    Performance Cookies
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="performanceCookies">
+                        <span class="slider"></span>
+                    </label>
+                </h3>
+                <p>Help us understand how visitors interact with our website by collecting and reporting information anonymously.</p>
+                <div class="cookie-info">
+                    <div class="cookie-detail">
+                        <h4>Purpose</h4>
+                        <p>Analytics and site improvements</p>
+                    </div>
+                    <div class="cookie-detail">
+                        <h4>Duration</h4>
+                        <p>Up to 2 years</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cookie-type">
+                <h3>
+                    Functional Cookies
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="functionalCookies">
+                        <span class="slider"></span>
+                    </label>
+                </h3>
+                <p>Enable personalized features and remember your preferences.</p>
+                <div class="cookie-info">
+                    <div class="cookie-detail">
+                        <h4>Purpose</h4>
+                        <p>Personalization and preferences</p>
+                    </div>
+                    <div class="cookie-detail">
+                        <h4>Duration</h4>
+                        <p>Up to 1 year</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cookie-type">
+                <h3>
+                    Marketing Cookies
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="marketingCookies">
+                        <span class="slider"></span>
+                    </label>
+                </h3>
+                <p>Used to track visitors across websites to display relevant advertisements.</p>
+                <div class="cookie-info">
+                    <div class="cookie-detail">
+                        <h4>Purpose</h4>
+                        <p>Targeted advertising</p>
+                    </div>
+                    <div class="cookie-detail">
+                        <h4>Duration</h4>
+                        <p>Up to 1 year</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="save-preferences" id="savePreferences">
+                Save Preferences
+            </button>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <footer>
+        <div class="corporation">
+            <a href="legal.html">Legal Stuff</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="security.html">Security</a>
+            <a href="accessibility.html">Website Accessibility</a>
+            <a href="manage_cookies.html">Manage Cookies</a> 
+            <br>
+            <div class="c">
+              Copyright  &#169; 2024 The Visual Vault, Inc.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Back to top functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Cookie preferences functionality
+        const savePreferences = document.getElementById('savePreferences');
+        const cookieToggles = {
+            performance: document.getElementById('performanceCookies'),
+            functional: document.getElementById('functionalCookies'),
+            marketing: document.getElementById('marketingCookies')
+        };
+
+        // Load saved preferences
+        const loadPreferences = () => {
+            const preferences = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
+            Object.entries(cookieToggles).forEach(([key, toggle]) => {
+                toggle.checked = preferences[key] ?? false;
+            });
+        };
+
+        // Save preferences
+        savePreferences.addEventListener('click', () => {
+            const preferences = {};
+            Object.entries(cookieToggles).forEach(([key, toggle]) => {
+                preferences[key] = toggle.checked;
+            });
+            localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+            
+            // Show success message
+            savePreferences.textContent = 'Preferences Saved!';
+            savePreferences.disabled = true;
+            setTimeout(() => {
+                savePreferences.textContent = 'Save Preferences';
+                savePreferences.disabled = false;
+            }, 2000);
+        });
+
+        // Load preferences on page load
+        loadPreferences();
+    </script>
+</body>
+</html> 

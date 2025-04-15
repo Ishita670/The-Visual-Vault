@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Cookies - The Visual Vault</title>
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: lavender;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .Navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #bac8ff;
+            width: 100%;
+            height: 60px;
+            font-size: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 20;
+        }
+
+        .Nav-links {
+            display: flex;
+            gap: 2rem;
+            padding-right: 39px;
+            margin: 0;
+        }
+
+        .Nav-link,
+        #dropdown li {
+            list-style: none;
+            cursor: pointer;
+            height: 100%;
+            padding: 0.5rem 0.75rem;
+            font-family: "Playfair Display SC", serif;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        .nav-heading {
+            color: #2E3135;
+            text-decoration: none;
+        }
+
+        .Nav-link:hover {
+            color: #fff;
+            border-radius: 0.5rem;
+        }
+
+        #dropdown {
+            position: absolute;
+            background-color: #2E3135;
+            padding: 0.5rem 0;
+            margin: 0.5rem -0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            display: none;
+        }
+
+        .Services:hover #dropdown {
+            display: block;
+            padding: 4px;
+        }
+
+        #dropdown li:hover {
+            transition: background-color 0.8s ease;
+            background-color: #D3D3D3;
+            border-radius: 0.5rem;
+        }
+
+        .cookies-container {
+            margin-top: 80px;
+            padding: 40px 10%;
+            font-family: "Lato", sans-serif;
+            color: #2E3135;
+        }
+
+        .cookies-heading {
+            font-size: 48px;
+            font-family: "DM Serif Display", serif;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: #2E3135;
+        }
+
+        .cookies-section {
+            margin-bottom: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-family: "DM Serif Display", serif;
+            margin-bottom: 20px;
+            color: #2E3135;
+            border-bottom: 2px solid #bac8ff;
+            padding-bottom: 10px;
+        }
+
+        .section-content {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background-color: rgba(186, 200, 255, 0.3);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .notice-box {
+            background-color: #f0f8ff;
+            padding: 20px;
+            border-left: 4px solid #bac8ff;
+            margin: 20px 0;
+        }
+
+        .essential-box {
+            background-color: #f0fff4;
+            padding: 20px;
+            border-left: 4px solid #48bb78;
+            margin: 20px 0;
+        }
+
+        .preference-box {
+            background-color: #fffaf0;
+            padding: 20px;
+            border-left: 4px solid #ed8936;
+            margin: 20px 0;
+        }
+
+        .analytics-box {
+            background-color: #fff5f5;
+            padding: 20px;
+            border-left: 4px solid #f56565;
+            margin: 20px 0;
+        }
+
+        .marketing-box {
+            background-color: #faf5ff;
+            padding: 20px;
+            border-left: 4px solid #9f7aea;
+            margin: 20px 0;
+        }
+
+        .contact-link {
+            color: #6c5ce7;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #4a3dc1;
+            text-decoration: underline;
+        }
+
+        .policy-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .policy-list li {
+            margin-bottom: 10px;
+        }
+
+        .cookies-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .cookies-table th, .cookies-table td {
+            border: 1px solid #C4DAD2;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .cookies-table th {
+            background-color: #bac8ff;
+            color: white;
+        }
+
+        .cookies-table tr:nth-child(even) {
+            background-color: rgba(186, 200, 255, 0.1);
+        }
+
+        .cookies-table tr:hover {
+            background-color: rgba(186, 200, 255, 0.2);
+        }
+
+        .cookie-toggle {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .cookie-toggle input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .cookie-toggle label {
+            font-weight: bold;
+        }
+
+        .cookie-toggle .toggle-description {
+            display: block;
+            margin-left: 30px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .save-btn {
+            background-color: #bac8ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-family: "Playfair Display SC", serif;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .save-btn:hover {
+            background-color: #9aa8e6;
+        }
+
+        .back-btn {
+            background-color: #C4DAD2;
+            color: #2E3135;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-family: "Playfair Display SC", serif;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            margin-right: 15px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background-color: #a8c2b8;
+            color: #2E3135;
+        }
+
+        footer {
+            margin-top: auto;
+            box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer .corporation {
+            background-color: #1A202C;
+            color: white;
+            width: 100%;
+            height: 140px;
+            font-size: 20px;
+            gap: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .corporation a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .corporation a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .cookies-container {
+                padding: 40px 5%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cookies-heading {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .cookies-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cookies-heading {
+                font-size: 28px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .cookies-section {
+                padding: 20px;
+            }
+            
+            .Nav-links {
+                padding-right: 20px;
+                gap: 1rem;
+                font-size: 20px;
+            }
+            
+            .back-btn, .save-btn {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="Navbar">
+            <ul class="Nav-links">
+                <li class="Nav-link"><a id="nav-headings1" href="index.html" style="text-decoration: none; ">Home </a></li>
+                <li class="Nav-link Services" id="services">
+                    <a id="nav-headings2" href="socials.html">Socials </a>
+                </li>
+                <li class="Nav-link"><a id="nav-headings6" href="blog.html">Blog</a></li>
+                <li class="Nav-link"><a id="nav-headings4" href="About.html">About</a></li>
+                <li class="Nav-link"><a id="nav-headings5" href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main class="cookies-container">
+        <h1 class="cookies-heading">Manage Cookies</h1>
+        
+        <div class="cookies-section">
+            <div class="notice-box">
+                <p><strong>Last Updated:</strong> <span class="highlight">January 1, 2025</span></p>
+                <p>This Cookie Policy explains how The Visual Vault uses cookies and similar technologies when you visit our website. You can manage your preferences for non-essential cookies using the controls below.</p>
+            </div>
+        </div>
+        
+        <div class="cookies-section">
+            <h2 class="section-title">What Are Cookies?</h2>
+            <div class="section-content">
+                <p>Cookies are small text files that are stored on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently, as well as to provide information to the website owners.</p>
+                
+                <p>We use different types of cookies for various purposes:</p>
+                
+                <div class="essential-box">
+                    <h3>Essential Cookies</h3>
+                    <p>These cookies are necessary for the website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you such as logging in or filling in forms.</p>
+                </div>
+                
+                <div class="preference-box">
+                    <h3>Preference Cookies</h3>
+                    <p>These cookies allow the website to remember choices you make (such as your language or region) and provide enhanced, more personal features.</p>
+                </div>
+                
+                <div class="analytics-box">
+                    <h3>Analytics Cookies</h3>
+                    <p>These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.</p>
+                </div>
+                
+                <div class="marketing-box">
+                    <h3>Marketing Cookies</h3>
+                    <p>These cookies track visitors across websites to display more relevant advertising content.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cookies-section">
+            <h2 class="section-title">Manage Your Cookie Preferences</h2>
+            <div class="section-content">
+                <p>You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed. However, if you do this, you may have to manually adjust some preferences every time you visit a site and some services and functionalities may not work.</p>
+                
+                <p>Use the toggles below to manage your cookie preferences for non-essential cookies:</p>
+                
+                <div class="cookie-toggle">
+                    <input type="checkbox" id="prefCookies" checked disabled>
+                    <label for="prefCookies">Essential Cookies</label>
+                    <span class="toggle-description">Always active - These cookies are necessary for the website to function properly.</span>
+                </div>
+                
+                <div class="cookie-toggle">
+                    <input type="checkbox" id="preferenceCookies" checked>
+                    <label for="preferenceCookies">Preference Cookies</label>
+                    <span class="toggle-description">Allow the website to remember your preferences (like language or region).</span>
+                </div>
+                
+                <div class="cookie-toggle">
+                    <input type="checkbox" id="analyticsCookies" checked>
+                    <label for="analyticsCookies">Analytics Cookies</label>
+                    <span class="toggle-description">Help us improve our website by collecting anonymous usage data.</span>
+                </div>
+                
+                <div class="cookie-toggle">
+                    <input type="checkbox" id="marketingCookies">
+                    <label for="marketingCookies">Marketing Cookies</label>
+                    <span class="toggle-description">Used to track visitors across websites for advertising purposes.</span>
+                </div>
+                
+                <button class="save-btn" id="savePreferences">Save Preferences</button>
+            </div>
+        </div>
+        
+        <div class="cookies-section">
+            <h2 class="section-title">Detailed Cookie Information</h2>
+            <div class="section-content">
+                <p>The table below provides more information about the cookies we use:</p>
+                
+                <table class="cookies-table">
+                    <thead>
+                        <tr>
+                            <th>Cookie Name</th>
+                            <th>Purpose</th>
+                            <th>Duration</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>session_id</td>
+                            <td>Maintains your session state</td>
+                            <td>Session</td>
+                            <td>Essential</td>
+                        </tr>
+                        <tr>
+                            <td>user_prefs</td>
+                            <td>Stores your language and display preferences</td>
+                            <td>1 year</td>
+                            <td>Preference</td>
+                        </tr>
+                        <tr>
+                            <td>_ga</td>
+                            <td>Google Analytics - distinguishes users</td>
+                            <td>2 years</td>
+                            <td>Analytics</td>
+                        </tr>
+                        <tr>
+                            <td>_gid</td>
+                            <td>Google Analytics - distinguishes users</td>
+                            <td>24 hours</td>
+                            <td>Analytics</td>
+                        </tr>
+                        <tr>
+                            <td>_fbp</td>
+                            <td>Facebook Pixel - tracks conversions</td>
+                            <td>3 months</td>
+                            <td>Marketing</td>
+                        </tr>
+                        <tr>
+                            <td>NID</td>
+                            <td>Google Ads preferences</td>
+                            <td>6 months</td>
+                            <td>Marketing</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="cookies-section">
+            <h2 class="section-title">Browser Controls</h2>
+            <div class="section-content">
+                <p>Most web browsers allow some control of cookies through browser settings. Below are links to information about managing cookies in popular browsers:</p>
+                
+                <ul class="policy-list">
+                    <li><a href="https://support.google.com/chrome/answer/95647" class="contact-link" target="_blank">Google Chrome</a></li>
+                    <li><a href="https://support.mozilla.org/en-US/kb/enable-and-disable-cookies-website-preferences" class="contact-link" target="_blank">Mozilla Firefox</a></li>
+                    <li><a href="https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies" class="contact-link" target="_blank">Internet Explorer</a></li>
+                    <li><a href="https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac" class="contact-link" target="_blank">Safari</a></li>
+                    <li><a href="https://support.microsoft.com/en-us/help/4027947/windows-delete-cookies" class="contact-link" target="_blank">Microsoft Edge</a></li>
+                    <li><a href="https://help.opera.com/en/latest/web-preferences/#cookies" class="contact-link" target="_blank">Opera</a></li>
+                </ul>
+                
+                <p>To find information relating to other browsers, visit the browser developer's website.</p>
+            </div>
+        </div>
+        
+        <div class="cookies-section">
+            <h2 class="section-title">Do Not Track Signals</h2>
+            <div class="section-content">
+                <p>Some browsers incorporate a "Do Not Track" (DNT) feature that, when turned on, signals to websites that you do not want to be tracked. Currently, there is no standard for how websites should respond to DNT signals, and we do not currently respond to such signals.</p>
+            </div>
+        </div>
+        
+        <div class="cookies-section">
+            <h2 class="section-title">Changes to This Policy</h2>
+            <div class="section-content">
+                <p>We may update this Cookie Policy from time to time to reflect changes in technology, legislation, or our data use policies. When we make significant changes, we will notify you by placing a prominent notice on our website or by sending you an email where appropriate.</p>
+                
+                <p>We encourage you to periodically review this page for the latest information on our cookie practices.</p>
+            </div>
+        </div>
+        
+        <div class="cookies-section">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="section-content">
+                <p>If you have any questions about our use of cookies or this Cookie Policy, please contact us:</p>
+                
+                <p><strong>Email:</strong> <a href="mailto:ishita1245.becse24@chitkara.edu.in" class="contact-link">ishita1245.becse24@chitkara.edu.in</a><br>
+                    <a href="mailto:lavnish1255.becse24@chitkara.edu.in" class="contact-link">lavnish1255.becse24@chitkara.edu.in</a> <br>
+                <strong>Phone:</strong> (+91) 86998-21454<br> (+91) 62397-78748<br>
+                <strong>Address:</strong> 123 Creative Lane, Art District, NY 10001</p>
+            </div>
+        </div>
+        
+        <div class="button-group">
+            <a href="About.html" class="back-btn">
+                <i class='bx bx-arrow-back'></i> Back to About Page
+            </a>
+            <button class="save-btn" id="bottomSavePreferences">Save Preferences</button>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="corporation">
+            <a href="legal.html">Legal Stuff</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="security.html">Security</a>
+            <a href="accessibility.html">Website Accessibility</a>
+            <a href="cookies.html">Manage Cookies</a> 
+            <br>
+            <div class="c">
+              Copyright  &#169; 2024 The Visual Vault, Inc.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update last updated date automatically
+            const lastUpdatedElement = document.querySelector('.highlight');
+            if (lastUpdatedElement) {
+                lastUpdatedElement.textContent = new Date().toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+            }
+            
+            // Load saved cookie preferences
+            function loadPreferences() {
+                const prefs = JSON.parse(localStorage.getItem('cookiePreferences')) || {
+                    preference: true,
+                    analytics: true,
+                    marketing: false
+                };
+                
+                document.getElementById('preferenceCookies').checked = prefs.preference;
+                document.getElementById('analyticsCookies').checked = prefs.analytics;
+                document.getElementById('marketingCookies').checked = prefs.marketing;
+            }
+            
+            // Save cookie preferences
+            function savePreferences() {
+                const preferences = {
+                    preference: document.getElementById('preferenceCookies').checked,
+                    analytics: document.getElementById('analyticsCookies').checked,
+                    marketing: document.getElementById('marketingCookies').checked
+                };
+                
+                localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+                
+                // Show confirmation
+                alert('Your cookie preferences have been saved.');
+                
+                // Here you would typically also set the actual cookies
+                // based on the user's preferences
+            }
+            
+            // Set up event listeners
+            document.getElementById('savePreferences').addEventListener('click', savePreferences);
+            document.getElementById('bottomSavePreferences').addEventListener('click', savePreferences);
+            
+            // Load preferences when page loads
+            loadPreferences();
+        });
+    </script>
+</body>
+</html>

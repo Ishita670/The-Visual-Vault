@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Information - The Visual Vault</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .legal-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .legal-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ff6b95;
+        }
+
+        .legal-header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .legal-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .legal-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .legal-section h2 {
+            color: #ff6b95;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legal-section h2 i {
+            font-size: 0.9em;
+        }
+
+        .legal-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .legal-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .legal-section li {
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .legal-section li:before {
+            content: "•";
+            color: #ff6b95;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .legal-section h3 {
+            color: #333;
+            font-size: 1.3em;
+            margin: 20px 0 10px;
+        }
+
+        .legal-section h4 {
+            color: #444;
+            font-size: 1.1em;
+            margin: 15px 0 8px;
+        }
+
+        .legal-notice {
+            background: #fff3f5;
+            border-left: 4px solid #ff6b95;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .legal-notice h3 {
+            color: #ff6b95;
+            margin-bottom: 10px;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6b95;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: #ff4f7b;
+            transform: translateY(-3px);
+        }
+
+        .legal-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .legal-link {
+            background: #ff6b95;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s;
+        }
+
+        .legal-link:hover {
+            background: #ff4f7b;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1>The Visual Vault</h1>
+                <svg class="logo-icon" fill="#ff6b95" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 349.078 349.078">
+                    <path d="M150.299,26.634v58.25c0,7.9-6.404,14.301-14.304,14.301c-28.186,0-43.518,28.909-45.643,85.966h45.643 c7.9,0,14.304,6.407,14.304,14.304v122.992c0,7.896-6.404,14.298-14.304,14.298H14.301C6.398,336.745,0,330.338,0,322.447V199.455 c0-27.352,2.754-52.452,8.183-74.611c5.568-22.721,14.115-42.587,25.396-59.048c11.608-16.917,26.128-30.192,43.16-39.44 C93.886,17.052,113.826,12.333,136,12.333C143.895,12.333,150.299,18.734,150.299,26.634z M334.773,99.186 c7.896,0,14.305-6.407,14.305-14.301v-58.25c0-7.9-6.408-14.301-14.305-14.301c-22.165,0-42.108,4.72-59.249,14.023 c-17.035,9.248-31.563,22.523-43.173,39.44c-11.277,16.461-19.824,36.328-25.393,59.054c-5.426,22.166-8.18,47.266-8.18,74.605 v122.992c0,7.896,6.406,14.298,14.304,14.298h121.69c7.896,0,14.299-6.407,14.299-14.298V199.455 c0-7.896-6.402-14.304-14.299-14.304h-44.992C291.873,128.095,306.981,99.186,334.773,99.186z"></path>
+                </svg>
+            </div>
+            <nav>
+                <input type="checkbox" id="sidebar-active">
+                <label for="sidebar-active" class="open-sidebar-button">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <ul class="links-container">
+                    <label for="sidebar-active" class="close-sidebar-button">
+                        <i class="fas fa-times"></i>
+                    </label>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="socials.html">Socials</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li class="user-profile">
+                        <div class="user-icon">
+                            <a href="dashboard.html"><i class="fas fa-user"></i></a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="legal-container">
+            <div class="legal-header">
+                <h1>Legal Information</h1>
+                <p>Important legal documents and policies for The Visual Vault</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><i class="fas fa-balance-scale"></i> Terms of Service</h2>
+                <p>By using The Visual Vault, you agree to these terms. Please read them carefully.</p>
+                
+                <h3>1. Acceptance of Terms</h3>
+                <p>By accessing or using The Visual Vault, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+
+                <h3>2. User Responsibilities</h3>
+                <ul>
+                    <li>You must be at least 13 years old to use our service</li>
+                    <li>You are responsible for maintaining the confidentiality of your account</li>
+                    <li>You agree not to use the service for any illegal or unauthorized purpose</li>
+                    <li>You must not violate any laws in your jurisdiction</li>
+                </ul>
+
+                <h3>3. Content Guidelines</h3>
+                <p>Users are responsible for the content they upload and share. We reserve the right to remove any content that violates our guidelines.</p>
+            </div>
+
+            <div class="legal-section">
+                <h2><i class="fas fa-shield-alt"></i> Privacy Policy</h2>
+                <p>Your privacy is important to us. This policy explains how we collect, use, and protect your information.</p>
+
+                <h3>1. Information Collection</h3>
+                <p>We collect information that you provide directly to us, including:</p>
+                <ul>
+                    <li>Account information (name, email, etc.)</li>
+                    <li>Content you upload or share</li>
+                    <li>Communication preferences</li>
+                </ul>
+
+                <h3>2. Information Usage</h3>
+                <p>We use your information to:</p>
+                <ul>
+                    <li>Provide and improve our services</li>
+                    <li>Communicate with you</li>
+                    <li>Ensure security and prevent fraud</li>
+                </ul>
+            </div>
+
+            <div class="legal-section">
+                <h2><i class="fas fa-copyright"></i> Copyright Policy</h2>
+                <p>We respect intellectual property rights and expect our users to do the same.</p>
+
+                <h3>1. Copyright Protection</h3>
+                <p>All content on The Visual Vault is protected by copyright laws. Users retain ownership of their uploaded content.</p>
+
+                <h3>2. DMCA Compliance</h3>
+                <p>We comply with the Digital Millennium Copyright Act (DMCA). If you believe your copyright has been infringed, please contact us.</p>
+
+                <div class="legal-notice">
+                    <h3><i class="fas fa-exclamation-circle"></i> Notice</h3>
+                    <p>Unauthorized use of copyrighted material may result in account termination and legal action.</p>
+                </div>
+            </div>
+
+            <div class="legal-section">
+                <h2><i class="fas fa-gavel"></i> Dispute Resolution</h2>
+                <p>We aim to resolve any disputes amicably and efficiently.</p>
+
+                <h3>1. Governing Law</h3>
+                <p>These terms shall be governed by and construed in accordance with the laws of the jurisdiction in which we operate.</p>
+
+                <h3>2. Dispute Process</h3>
+                <ul>
+                    <li>Contact our support team first</li>
+                    <li>If unresolved, we may attempt mediation</li>
+                    <li>As a last resort, disputes may be resolved through arbitration</li>
+                </ul>
+            </div>
+
+            <div class="legal-links">
+                <a href="cookies.html" class="legal-link">Cookie Settings</a>
+                <a href="privacy.html" class="legal-link">Privacy Policy</a>
+                <a href="security.html" class="legal-link">Security</a>
+                <a href="accessibility.html" class="legal-link">Accessibility</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="corporation">
+            <a href="legal.html">Legal Stuff</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="security.html">Security</a>
+            <a href="accessibility.html">Website Accessibility</a>
+            <a href="cookies.html">Manage Cookies</a> 
+            <br>
+            <div class="c">
+              Copyright  &#169; 2024 The Visual Vault, Inc.
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <script>
+        // Back to top functionality
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Blog</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+        :root{
+            --clr-light:#FFF2D7;
+            --clr-dark:  #8C6A5D;
+            --clr-h3:#3C2A21;
+            --foreground:var(--clr-dark);
+            --background:var(--clr-light);
+        }
+        @media(prefers-color-scheme:dark){
+         :root{
+            --clr-light:#FFF2D7;
+            --clr-dark:  #8C6A5D;
+            --clr-h3:#ECB176;
+            --foreground:var(--clr-light);
+            --background:var(--clr-dark);
+         }
+        }
+        body{
+            overflow-x: hidden;
+            background-color: var(--background);
+            font-family: 'Ubuntu', sans-serif;
+        }
+        header{
+            min-height: 854px;
+        }
+        header .logo{
+            font-size: 30px ;
+            color:white
+        }
+        header .navbar{
+            display: flex ;
+            justify-content: space-between;
+            height: 60px;
+            align-items: center;
+        }
+        .navbar nav ul{
+            display: inline-flex;
+            gap:30px ;
+            list-style:none;
+            margin-right: 20px;
+        }
+        .navbar nav ul a{
+            text-decoration: none;
+            font-size: clamp(15px,3.378vw,30px);
+            color: #fff;
+        }#sidebar-active{
+            display: none;
+        }
+        .open-sidebar-button,.close-sidebar-button{
+            display: none;
+            padding: 0 20px;
+        }
+
+        @media(max-width:450px){
+            nav{
+                justify-content: flex-end;
+            }
+            .links-container{
+                flex-direction: column;
+                align-items: flex-start;
+                position: fixed;
+                top: 0;
+                right: -100%;
+                z-index: 10;
+                width: 250px;
+                background-color: rgba(255, 255, 255, 0.1);
+                box-shadow: -5px 0 5px rgba(0, 0, 0, 0.25) ;
+                transition: 0.75s ease-out;
+            }
+            nav a{
+                height:auto;
+                width: 100%;
+                padding: 20px 30px;
+            }
+           #sidebar-active:checked~.open-sidebar-button{
+                display: none;
+                transition: 0.1ms;
+            }
+            .open-sidebar-button,.close-sidebar-button{
+            display: block;
+            padding: 20px;
+           }
+           #sidebar-active:checked~.links-container{
+            right: 0;
+           }
+           nav a:hover{
+            background-color: cadetblue;
+           }
+        }   
+
+        .back-video{
+           position: absolute;
+           z-index: -1;
+           right: 0;
+           bottom:0;
+        }
+        @media (min-aspect-ratio:16/9){
+            .back-video{
+                width: 100%;
+                height : auto;
+                filter: brightness(40%);
+            }
+        }
+        @media (max-aspect-ratio:16/9){
+            .back-video{
+                width: auto;
+                height : 100%;
+            }
+        }
+        .quote{
+         display: flex;
+         justify-content: center;
+         align-items: center;  
+         font-size: clamp(20px,2.27vw,40px);
+         margin-top: 50px;
+         transition: 0.5s;
+         color: #fff;
+         font-family: "Ubuntu", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+        }
+        .quote:hover{
+            -webkit-text-stroke: 1px #fff;
+            color: transparent;
+        }
+        @keyframes slide{
+            from{
+                transform: translateX(0);
+            }
+            to{
+                transform: translateX(-100%);
+            }
+        }
+        .effect{
+            overflow: hidden;
+            padding: 10px 0;
+            background-color: white ;
+            white-space: nowrap;
+            position: relative;
+            transform: rotate(-5deg) ;
+            top: 70px;
+        }
+        .effect::before,.effect::after{
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 324px;
+            content: "";
+            z-index: 2;
+        }
+        .effect:before{
+            left: 0;
+            background:linear-gradient(to left, rgba(255,255,255,0), white);
+        }
+        .effect:after{
+            right: 0;
+            background: linear-gradient(to right, rgba(255,255,255,0),white);
+        }
+
+        .effect:hover:hover .logo-slide{
+            animation-play-state: paused;
+        }
+        .logo-slide{
+            display: inline-block;
+            animation:15s slide infinite linear ;
+        }
+        .logo-slide img{
+            height: 200px;
+            width: 200px;
+        }
+        .effect:hover img{
+            filter: grayscale(40%) blur(4px) brightness(0.8);
+        }
+        .effect:hover img:hover{
+            filter: grayscale(0%) blur(0px);
+        }
+
+        main{
+            margin-top: 80px;
+        }
+
+        .blog-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 100px;
+        }
+
+        .blog-box{
+            margin: 0 15px;
+        }
+        .blog-image{
+            max-width: 600px;
+            height: 400px;
+            border-radius: 100px 44px;
+            object-fit: cover;
+        }
+        .story-container1{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .story-container2{
+            display: flex;
+            flex-direction: row-reverse;
+            margin-bottom: 50px;
+        }
+
+        .heading{
+            margin-bottom: 50px;
+            color: var(--clr-h3);
+        }
+        h2{
+            font-size: clamp(20px,1.95vw,35px);
+            text-align: center;
+            color: var(--clr-h3);
+        }
+        .blog{
+            max-width: 500px;
+            padding-top: 1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .blog-heading{
+            line-height: 1.5;
+            color: var(--clr-h3);
+            font-size: clamp(20px,1.69vw,30px)
+        }
+        .blog-elaboration{
+            line-height: 25px;
+            color: var(--foreground);
+        }
+        @media (max-width:1150px) {
+            .story-container1,.story-container2{
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        @media(max-width:650px){
+            .blog-image{
+                width: 100%;
+                min-width: unset;
+                object-fit: cover;
+            }
+            .Users-images{
+                columns: 2;
+            }
+        }
+        .modern-pictures {
+            display: flex;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 80px;
+            margin-top: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .modern-aesthethics {
+            transition: .5s;
+            filter: brightness(0);
+        }
+
+        .modern-image {
+            height: 400px;
+            max-width: 150px;
+            object-fit: cover;
+        }
+        .modern-aesthethics:hover {
+            filter: brightness(1);
+            transform: translateZ(200px);
+        }
+        .modern-aesthethics:hover+* {
+            filter: brightness(0.8);
+            transform: translateZ(150px) rotateY(40deg);
+        }
+
+        /* Removed invalid rule as :hover++ is not valid */
+
+        .modern-aesthethics:has(+ *:hover) {
+            filter: brightness(0.8);
+            transform: translateZ(150px) rotateY(-40deg);
+        }
+        /* Removed invalid rule as :has(+ +:hover) is not valid */
+        .modern-effects{
+            margin-top: 80px;
+            margin-left: 15px;
+            margin-right: 15px;
+        } 
+        .modern-effects-heading{
+            margin-bottom: 80px;
+            text-align: center;
+        } 
+        .modern-pictures-heading{
+            font-size: 30px;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+        .line-md-arrow-up{
+            transform: rotate(90deg);
+            transition: 1s;
+        }
+        .From-our-users-heading{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .Users-Description{
+            text-align: center;
+            color: var(--foreground);
+        }
+        .Users-images{
+            margin-top: 40px;
+            margin-left: 20px;
+            margin-right: 20px;
+            flex-wrap: wrap;
+            columns: 4;
+            gap: 10px;
+        }
+        .user-images-section{
+            margin-bottom: 20px;
+            break-inside: avoid;
+        }
+        .user-images-section-img{
+            width: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .user-images-section-img:hover {
+            transform: scale(1.03);
+        }
+        .join-section{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .join-section-heading{
+            text-align: center;
+        }
+        .joining-qoute{
+            text-align: center;
+            display: inline-flex;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--foreground);
+        }
+        .upload{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .left{
+            transform: rotate(-5deg);
+            color: rgb(134, 244, 134);
+        }
+        .right{
+            transform: rotate(5deg);
+            color: rgb(143, 143, 211);
+        }
+
+        /* Upload Section Styles */
+        .join-us-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            background-color: var(--background);
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #8C6A5D;
+            background-color: rgba(140, 106, 93, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .select-files-btn {
+            background: #8C6A5D;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .select-files-btn:hover {
+            background: #6d5247;
+        }
+
+        .error-message {
+            color: #f44336;
+            margin: 10px 0;
+            padding: 10px;
+            background: #ffebee;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .image-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .image-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .image-item .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+        }
+
+        .image-item:hover .remove-btn {
+            display: block;
+        }
+
+        .image-name {
+            font-size: 12px;
+            padding: 5px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            background: #fff;
+        }
+
+        .title {
+            text-align: center;
+            color: var(--clr-h3);
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        /* Story Form Styles */
+        .story-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(140, 106, 93, 0.1);
+            border-radius: 8px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--clr-h3);
+        }
+        
+        .form-group input[type="text"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: 'Ubuntu', sans-serif;
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-story-btn {
+            background: #8C6A5D;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .submit-story-btn:hover {
+            background: #6d5247;
+        }
+        
+        /* User Stories Section */
+        .user-stories-container {
+            margin-top: 50px;
+        }
+        
+        .user-stories-heading {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--clr-h3);
+        }
+        
+        .user-stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        
+        .user-story-card {
+            background-color: var(--background);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .user-story-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .user-story-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .user-story-content {
+            padding: 15px;
+        }
+        
+        .user-story-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--clr-h3);
+        }
+        
+        .user-story-author {
+            font-size: 0.8rem;
+            color: var(--foreground);
+            margin-bottom: 10px;
+        }
+        
+        .user-story-text {
+            color: var(--foreground);
+            line-height: 1.5;
+        }
+        
+        .remove-story-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+            font-size: 16px;
+            z-index: 10;
+        }
+        
+        .user-story-card:hover .remove-story-btn {
+            display: block;
+        }
+        
+        /* Add Story Button */
+        .add-story-btn {
+            display: block;
+            margin: 20px auto;
+            background: #8C6A5D;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        .add-story-btn:hover {
+            background: #6d5247;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.1.0/dist/iconify-icon.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo">The Visual Vault</div>
+            <nav>
+                <input type="checkbox" id="sidebar-active">
+                <label for="sidebar-active" class="open-sidebar-button">
+                    <iconify-icon icon="mingcute:menu-fill" width="24" height="24" class="svg"
+                        style="color: black"></iconify-icon>
+                </label>
+                <ul class="links-container">
+                    <label for="sidebar-active" class="close-sidebar-button">
+                        <iconify-icon icon="maki:cross" width="24" height="24" class="svg"
+                            style="color:black"></iconify-icon>
+                    </label>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="socials.html">Socials</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="img">
+            <video autoplay loop muted plays-inline class="back-video">
+                <source src="https://videos.pexels.com/video-files/2081238/2081238-uhd_2560_1440_24fps.mp4"
+                    type="video/mp4">
+            </video>
+            <div class="quote">
+                <h1>A Photograph Is a <br> Secret About <br> The More It <br> Tells You <br> The Less <br> You Know.
+                    <br>- STEVE MCCURRY</h1>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="effect">
+            <div class="logo-slide">
+                <img src="img1.jpeg" alt="">
+                <img src="img2.jpeg" alt="">
+                <img src="img3.jpeg" alt="">
+                <img src="img4.jpeg" alt="">
+                <img src="img5.jpeg" alt="">
+                <img src="img6.jpeg" alt="">
+            </div>
+            <div class="logo-slide">
+                <img src="img1.jpeg" alt="">
+                <img src="img2.jpeg" alt="">
+                <img src="img3.jpeg" alt="">
+                <img src="img4.jpeg" alt="">
+                <img src="img5.jpeg" alt="">
+                <img src="img6.jpeg" alt="">
+            </div>
+        </div>
+        <div class="blog-container">
+            <div class="heading">
+                <h2>Our Stories</h2>
+                <p>Trending Ones of the week</p>
+            </div>
+            <div class="blog-box">
+                <div class="story-container1 ">
+                    <img class="blog-image"
+                        src="https://images.squarespace-cdn.com/content/v1/50f2c70ee4b0d70ab5fe596e/631a472b-a30e-41f8-8a48-c7c3deb63690/0F9A0877.jpg?format=1500w"
+                        alt="">
+                    <div class="blog">
+                        <h3 class="blog-heading">The magic of Grand Central Terminal
+                        </h3>
+                        <p class="blog-elaboration">Every time I go to New York, I end up spending an inordinate amount
+                            of time in Grand Central station. Mainly, because we usually end up staying nearby, and it
+                            is a handy throughway to other avenues. But it's also because it's kind of a magical place.
+                            It is like something out of a movie, and it probably has been in many. Every time you walk
+                            through it, there are stories happening all around you.I've photographed the inside of the
+                            station before, and always got some good results, but on the most recent trip, I only took a
+                            few photographs inside, as I didn't really have the time. I took a few shots outside too. To
+                            be honest, I hadn't truly paid much attention to these until recently.</p>
+                    </div>
+                </div>
+                <div class="story-container2 ">
+                    <img class="blog-image"
+                        src="https://images.squarespace-cdn.com/content/v1/5b670534b98a78d5e84a7d19/1715070299170-93G66CD7GKJ5S96G4WLW/ilfocolor4002.jpg?format=500w"
+                        alt="">
+                    <div class="blog">
+                        <h3 class="blog-heading">Vintage (ビンテージもの) by Glen Snyder
+                        </h3>
+                        <p class="blog-elaboration">The allure of vintage photography lies in its ability to capture a
+                            moment in time with a distinctive charm and character. In this photoessay, Glen Snyder
+                            explores the world of vintage through the eyes of a seasoned photographer who has
+                            rediscovered the beauty of film photography using a classic Konica III camera from the late
+                            1950s.With a focus on black and white films, including Ilford Delta 400 and Kodak T-Max, and
+                            vibrant color films like Kodak Ektar 100, this essay delves into the unique qualities that
+                            make vintage photography so captivating.</p>
+                    </div>
+                </div>
+                <div class="story-container1 ">
+                    <img class="blog-image"
+                        src="https://images.squarespace-cdn.com/content/v1/5b670534b98a78d5e84a7d19/1720083999582-XSGGOF11NHMLZ2I2G5BK/03.jpg?format=500w"
+                        alt="">
+                    <div class="blog">
+                        <h3 class="blog-heading">Challenges of Photographing Kids in Urban Landscapes: A Jeff Rothstein
+                            Photo Essay
+                        </h3>
+                        <p class="blog-elaboration">Photographing kids is something close to my heart lately. Some of
+                            you probably know this, but I am a father of two small children, which is why I was
+                            delighted to see someone actually submit a photo essay on "kids" photography—a task that is
+                            frankly not that easy to do nowadays. Now, you might say these were different times, and it
+                            is impossible today. You risk being seen as a creep taking pictures of kids on the street,
+                            especially with a telephoto lens.</p>
+                    </div>
+                </div>
+                <div class="story-container2 ">
+                    <img class="blog-image"
+                        src="https://i.guim.co.uk/img/media/1519c5c7c2f7f84344e353d5dcd961651b3db78c/0_0_2048_1470/master/2048.jpg?width=1300&dpr=2&s=none&crop=none"
+                        alt="">
+                    <div class="blog">
+                        <h3 class="blog-heading">Protesters and mourners gather at the funeral of Mahsa Amini, Iran
+                        </h3>
+                        <p class="blog-elaboration">The death of Mahsa Amini on 16 September in Iran sparked protests
+                            and unrest that continue to challenge the supreme leader Ali Khamenei's repressive regime.
+                            Amini was 22 years old when she died after being detained by Iran's brutal morality police
+                            for allegedly breaching the country's strict dress code for women. On 26 October, protesters
+                            and mourners made their way towards Aichi cemetery in Saqez – Amini's home town, in the
+                            western Iranian province of Kurdistan. </p>
+                    </div>
+                </div>
+                <div class="story-container1">
+                    <img class="blog-image"
+                        src="https://wp.scoopwhoop.com/wp-content/uploads/2015/09/567739376e510a6f3a75daf5_765711369.jpeg"
+                        alt="">
+                    <div class="blog">
+                        <h3 class="blog-heading">The patient outlived the doctor.
+                        </h3>
+                        <p class="blog-elaboration"> This much-circulated photograph shows an extremely tired doctor
+                            after a 23-hour-long heart transplant. His assistant can been seen sleeping at the corner of
+                            the room. The patient not only survived the operation, he outlived the doctor too.</p>
+                    </div>
+                </div>
+                <div class="story-container2">
+                    <img class="blog-image"
+                        src="https://wp.scoopwhoop.com/wp-content/uploads/2015/09/567739376e510a6f3a75daf5_318866672.jpg"
+                        alt="">
+                    <div class="blog">
+                        <h3 class="blog-heading">Haunted by what he had seen in Sudan and severely criticised for not
+                            helping the little girl, photographer Kevin Carter committed suicide a few months after this
+                            photo was taken.
+                        </h3>
+                        <p class="blog-elaboration"> Photographer Kevin Carter took the photograph of this little girl
+                            in southern Sudan, devastated by famine. You can see a vulture waiting to feed on the girl.
+                            Carter took the photograph and chased the vulture away. The girl had made it to safety.
+                            Carter won a Pulitzer for this photograph. But he was criticized for not helping the girl..
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modern-effects">
+            <div class="modern-effects-heading">
+                <h2>Some popular image effects</h2>
+                <p>Trending Ones of the week</p>
+            </div>
+            <div class="modern-pictures-heading">
+                <iconify-icon icon="line-md:arrow-up" width="35" height="35" style="color: #3C2A21"
+                    class="line-md-arrow-up"></iconify-icon>
+                <h2>Piano Scroll</h2>
+            </div>
+            <div class="modern-pictures">
+                <div class=" modern-aesthethics ">
+                    <img class="modern-image"
+                        src="https://images.pexels.com/photos/28283858/pexels-photo-28283858/free-photo-of-a-mountain-range-with-a-lake-in-the-middle.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                        alt="#">
+                </div>
+                <div class=" modern-aesthethics "><img class="modern-image"
+                        src="https://images.pexels.com/photos/28380016/pexels-photo-28380016/free-photo-of-en-algun-lugar-del-mar-mediterraneo.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                        alt="#"></div>
+                <div class=" modern-aesthethics "><img class="modern-image"
+                        src="https://images.pexels.com/photos/20474596/pexels-photo-20474596/free-photo-of-person-carrying-snowboards-in-winter.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                        alt="#"></div>
+                <div class=" modern-aesthethics "><img class="modern-image"
+                        src="https://images.pexels.com/photos/29070086/pexels-photo-29070086/free-photo-of-canvas-tote-bag-on-rocky-shoreline-by-the-ocean.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                        alt="#"></div>
+                <div class=" modern-aesthethics "><img class="modern-image"
+                        src="https://images.pexels.com/photos/29147908/pexels-photo-29147908/free-photo-of-captivating-autumn-forest-with-sunlit-leaves.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                        alt="#"></div>
+                <div class=" modern-aesthethics "><img class="modern-image"
+                        src="https://images.pexels.com/photos/16114610/pexels-photo-16114610/free-photo-of-running-border-collie.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                        alt="#"></div>
+                <div class=" modern-aesthethics "><img class="modern-image"
+                        src="https://images.pexels.com/photos/19021583/pexels-photo-19021583/free-photo-of-close-up-of-tea-being-poured-into-a-cup-through-a-strainer.jpeg?auto=compress&cs=tinysrgb&w=400&lazy=load"
+                        alt="#"></div>
+            </div>
+        </div>
+        <div class="From-our-users">
+            <div class="From-our-users-heading">
+                <h2>From Our Users</h2>
+            </div>
+            <div class="Users">
+                <div class="Users-Description">
+                    Our Users shared a lot of photos Since the start of our Website <br> Here are Some of most Liked
+                    Images
+                </div>
+                <div class="Users-images">
+                    <div class="user-images-section"><img src="Mayank1.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="MAYANK2.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="mayank3.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="mayank4.1.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="mayank5.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="mayank6.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="mayank7.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="mayank8.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="flowers2.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="flowers1.jpg" class="user-images-section-img" alt="">
+                    </div>
+                    <div class="user-images-section"><img src="flowers.jpg" class="user-images-section-img" alt="">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Stories Section -->
+            <div class="user-stories-container">
+                <h2 class="user-stories-heading">User Stories</h2>
+                <button class="add-story-btn" id="addStoryBtn">+ Add Your Story</button>
+                <div class="user-stories-grid" id="userStoriesGrid">
+                    <!-- Stories will be added here by JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Story Form (Initially Hidden) -->
+            <div class="join-us-container" id="storyFormContainer" style="display: none;">
+                <h2 class="title">Share Your Story</h2>
+                <div class="story-form">
+                    <div class="form-group">
+                        <label for="storyTitle">Title</label>
+                        <input type="text" id="storyTitle" placeholder="Enter your story title">
+                    </div>
+                    <div class="form-group">
+                        <label for="storyAuthor">Your Name</label>
+                        <input type="text" id="storyAuthor" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="storyImage">Upload Image</label>
+                        <input type="file" id="storyImageUpload" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label for="storyText">Your Story</label>
+                        <textarea id="storyText" placeholder="Tell us the story behind your image..."></textarea>
+                    </div>
+                    <button class="submit-story-btn" id="submitStoryBtn">Submit Story</button>
+                    <button class="select-files-btn" id="cancelStoryBtn" style="background: #f44336; margin-left: 10px;">Cancel</button>
+                </div>
+                <div class="error-message" id="storyErrorMessage"></div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addStoryBtn = document.getElementById('addStoryBtn');
+            const storyFormContainer = document.getElementById('storyFormContainer');
+            const cancelStoryBtn = document.getElementById('cancelStoryBtn');
+            const submitStoryBtn = document.getElementById('submitStoryBtn');
+            const storyErrorMessage = document.getElementById('storyErrorMessage');
+            const userStoriesGrid = document.getElementById('userStoriesGrid');
+            
+            // Load any existing stories from localStorage
+            loadStories();
+            
+            // Show story form when "Add Story" button is clicked
+            addStoryBtn.addEventListener('click', function() {
+                storyFormContainer.style.display = 'block';
+                addStoryBtn.style.display = 'none';
+                window.scrollTo({
+                    top: storyFormContainer.offsetTop - 50,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Hide story form when "Cancel" button is clicked
+            cancelStoryBtn.addEventListener('click', function() {
+                storyFormContainer.style.display = 'none';
+                addStoryBtn.style.display = 'block';
+            });
+            
+            // Handle story submission
+            submitStoryBtn.addEventListener('click', function() {
+                const title = document.getElementById('storyTitle').value;
+                const author = document.getElementById('storyAuthor').value;
+                const imageFile = document.getElementById('storyImageUpload').files[0];
+                const text = document.getElementById('storyText').value;
+                
+                if (!title || !author || !text) {
+                    showStoryError('Please fill in all fields');
+                    return;
+                }
+                
+                if (!imageFile) {
+                    showStoryError('Please upload an image');
+                    return;
+                }
+                
+                // Validate image file
+                if (!imageFile.type.startsWith('image/')) {
+                    showStoryError('Please upload only image files.');
+                    return;
+                }
+                
+                if (imageFile.size > 5 * 1024 * 1024) { // 5MB size limit
+                    showStoryError('File size should be less than 5MB.');
+                    return;
+                }
+                
+                // Read the image file
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const story = {
+                        title,
+                        author,
+                        image: e.target.result,
+                        text,
+                        date: new Date().toLocaleDateString()
+                    };
+                    
+                    saveStory(story);
+                    addStoryToGrid(story, getStoriesCount() - 1); // Add with latest index
+                    
+                    // Clear the form
+                    document.getElementById('storyTitle').value = '';
+                    document.getElementById('storyAuthor').value = '';
+                    document.getElementById('storyImageUpload').value = '';
+                    document.getElementById('storyText').value = '';
+                    
+                    // Hide the form
+                    storyFormContainer.style.display = 'none';
+                    addStoryBtn.style.display = 'block';
+                    
+                    // Show success message
+                    showStoryError('Story submitted successfully!', 'green');
+                    setTimeout(() => (storyErrorMessage.style.display = 'none'), 2000);
+                };
+                reader.readAsDataURL(imageFile);
+            });
+            
+            function showStoryError(message, color = '#f44336') {
+                storyErrorMessage.textContent = message;
+                storyErrorMessage.style.display = 'block';
+                storyErrorMessage.style.color = color;
+                setTimeout(() => (storyErrorMessage.style.display = 'none'), 3000);
+            }
+            
+            function saveStory(story) {
+                const stories = JSON.parse(localStorage.getItem('userStories')) || [];
+                stories.push(story);
+                localStorage.setItem('userStories', JSON.stringify(stories));
+            }
+            
+            function getStoriesCount() {
+                const stories = JSON.parse(localStorage.getItem('userStories')) || [];
+                return stories.length;
+            }
+            
+            function loadStories() {
+                const stories = JSON.parse(localStorage.getItem('userStories')) || [];
+                userStoriesGrid.innerHTML = ''; // Clear current stories
+                stories.forEach((story, index) => addStoryToGrid(story, index));
+            }
+            
+            function addStoryToGrid(story, index) {
+                const storyCard = document.createElement('div');
+                storyCard.className = 'user-story-card';
+                
+                storyCard.innerHTML = `
+                    <button class="remove-story-btn" data-index="${index}">×</button>
+                    <img src="${story.image}" alt="${story.title}" class="user-story-image">
+                    <div class="user-story-content">
+                        <h3 class="user-story-title">${story.title}</h3>
+                        <div class="user-story-author">By ${story.author} • ${story.date}</div>
+                        <p class="user-story-text">${story.text}</p>
+                    </div>
+                `;
+                
+                userStoriesGrid.prepend(storyCard);
+                
+                // Add event listener to the remove button
+                const removeBtn = storyCard.querySelector('.remove-story-btn');
+                removeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const storyIndex = parseInt(this.getAttribute('data-index'));
+                    removeStory(storyIndex);
+                });
+            }
+            
+            function removeStory(index) {
+                const stories = JSON.parse(localStorage.getItem('userStories')) || [];
+                if (index >= 0 && index < stories.length) {
+                    if (confirm('Are you sure you want to delete this story?')) {
+                        stories.splice(index, 1);
+                        localStorage.setItem('userStories', JSON.stringify(stories));
+                        loadStories(); // Refresh the display
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

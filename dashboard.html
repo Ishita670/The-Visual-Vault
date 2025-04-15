@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - PixelPerfect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Root Variables */
+        :root {
+            --primary-color: #ff6b95;
+            --secondary-color: #6c5ce7;
+            --accent-color: #00cec9;
+            --text-color: #2d3436;
+            --light-text: #636e72;
+            --background-color: #f9f9f9;
+            --card-color: #ffffff;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+            
+            /* Dark mode variables */
+            --dark-background-color: #1a1a1a;
+            --dark-card-color: #2d2d2d;
+            --dark-text-color: #e0e0e0;
+            --dark-light-text: #b0b0b0;
+            --dark-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .dark-mode {
+            --background-color: var(--dark-background-color);
+            --card-color: var(--dark-card-color);
+            --text-color: var(--dark-text-color);
+            --light-text: var(--dark-light-text);
+            --box-shadow: var(--dark-box-shadow);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Header and Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: var(--card-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .links-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .links-container a {
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .links-container a:hover, .links-container a.active {
+            color: var(--primary-color);
+        }
+
+        .dark-mode-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-left: 1rem;
+        }
+
+        .dark-mode-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        #sidebar-active {
+            display: none;
+        }
+
+        .open-sidebar-button, .close-sidebar-button {
+            display: none;
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        /* Main Container */
+        .dashboard-container {
+            padding: 120px 5% 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+        }
+
+        .profile-details {
+            flex: 1;
+        }
+
+        .profile-username {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-name {
+            font-size: 1.2rem;
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .profile-bio {
+            font-style: italic;
+            color: var(--light-text);
+        }
+
+        .edit-profile-btn {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .edit-profile-btn:hover {
+            background-color: #ff4d7e;
+        }
+
+        /* Dashboard Tabs */
+        .dashboard-tabs {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            font-weight: 500;
+            color: var(--light-text);
+            border-bottom: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Saved Section */
+        #saved-tab .empty-state {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        #saved-tab .empty-state i {
+            font-size: 3rem;
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        #saved-tab .empty-state p {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Masonry Layout for Saved Images */
+        .masonry-grid {
+            columns: 3;
+            column-gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .masonry-grid {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .masonry-grid {
+                columns: 1;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .masonry-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .masonry-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1rem;
+            color: white;
+        }
+
+        .masonry-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .masonry-item .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .masonry-item:hover .remove-btn {
+            opacity: 1;
+        }
+
+        /* Editor Section */
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .editor-main {
+            display: flex;
+            gap: 1rem;
+            min-height: 500px;
+        }
+
+        .editor-sidebar {
+            width: 250px;
+            background-color: var(--background-color);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+        }
+
+        .editor-canvas {
+            flex: 1;
+            background-color: var(--background-color);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .canvas-placeholder {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .canvas-placeholder p {
+            margin-bottom: 1rem;
+            color: var(--light-text);
+        }
+
+        .editor-tools h3 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--light-text);
+        }
+
+        .tool-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-group h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .tool-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tool-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-option label {
+            font-size: 0.9rem;
+        }
+
+        .tool-option input[type="range"] {
+            width: 100%;
+        }
+
+        .color-picker {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-option {
+            padding: 0.5rem;
+            background-color: var(--card-color);
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-option:hover, .filter-option.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .editor-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--card-color);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background-color: #ff4d7e;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .upload-btn:hover {
+            background-color: #ff4d7e;
+        }
+
+        /* Text Tool Modal */
+        .text-modal, .resize-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-color);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            color: var(--primary-color);
+        }
+
+        .close-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light-text);
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .modal-btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .modal-btn.primary:hover {
+            background-color: #ff4d7e;
+        }
+
+        .modal-btn.secondary {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .modal-btn.secondary:hover {
+            background-color: #ddd;
+        }
+
+        /* Edit Profile Modal */
+        .profile-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .image-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .image-preview {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .editor-main {
+                flex-direction: column;
+            }
+            
+            .editor-sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            
+            .dashboard-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .open-sidebar-button {
+                display: block;
+            }
+            
+            .close-sidebar-button {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+            
+            .links-container {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: var(--card-color);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 4rem 2rem 2rem;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+                z-index: 200;
+            }
+            
+            #sidebar-active:checked ~ .links-container {
+                right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1>The Visual Vault</h1>
+                <!-- <img src="assets/camera-icon.svg" alt="Logo" class="logo-icon"> -->
+            </div>
+            <nav>
+                <input type="checkbox" id="sidebar-active">
+                <button class="open-sidebar-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="links-container">
+                    <button class="close-sidebar-button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="socials.html">Social</a></li>
+                    <li><a href="#" id="logoutBtn">Logout</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                </ul>
+                <button id="darkModeToggle" class="dark-mode-toggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Dashboard Content -->
+    <main class="dashboard-container">
+        <!-- Profile Section -->
+        <section class="profile-section">
+            <img src="https://via.placeholder.com/120" alt="Profile" class="profile-image" id="profileImage">
+            <div class="profile-details">
+                <h2 class="profile-username" id="profileUsername">itsnistav_</h2>
+                <h3 class="profile-name" id="profileName">Lavnish Kamboj</h3>
+                <p class="profile-bio" id="profileBio">Fortune favours the bold</p>
+            </div>
+            <button id="editProfileBtn" class="edit-profile-btn">Edit Profile</button>
+        </section>
+
+        <!-- Dashboard Tabs -->
+        <div class="dashboard-tabs">
+            <!-- <button class="tab-btn active" data-tab="saved-tab">SAVED</button> -->
+            <button class="tab-btn" data-tab="editor-tab">EDITOR</button>
+        </div>
+
+        <!-- Saved Tab Content -->
+        <div id="saved-tab" class="tab-content active">
+            <div class="masonry-grid" id="likedImagesGrid">
+                <!-- Liked images will be loaded here -->
+                <div class="empty-state">
+                    <i class="far fa-bookmark"></i>
+                    <!-- <p>Save photos and videos that you want to see again.</p> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Editor Tab Content -->
+        <div id="editor-tab" class="tab-content">
+            <div class="editor-container">
+                <div class="editor-main">
+                    <div class="editor-sidebar">
+                        <div class="editor-tools">
+                            <div class="tool-group">
+                                <h4>Drawing Tools</h4>
+                                <div class="tool-options">
+                                    <div class="tool-option">
+                                        <label for="brushSize">Brush Size</label>
+                                        <input type="range" id="brushSize" min="1" max="50" value="5">
+                                    </div>
+                                    <div class="tool-option">
+                                        <label for="brushColor">Color</label>
+                                        <input type="color" id="brushColor" class="color-picker" value="#000000">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tool-group">
+                                <h4>Image Tools</h4>
+                                <div class
+                                <div class="tool-options">
+                                    <button class="filter-option active">Normal</button>
+                                    <button class="filter-option">Grayscale</button>
+                                    <button class="filter-option">Sepia</button>
+                                    <button class="filter-option">Vintage</button>
+                                    <button class="filter-option">Blur</button>
+                                    <button class="filter-option">Sharpen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-canvas">
+                        <canvas id="imageCanvas" width="800" height="600"></canvas>
+                        <div class="canvas-placeholder" id="canvasPlaceholder">
+                            <p>Upload an image to start editing</p>
+                            <label for="imageUpload" class="upload-btn">Select Image</label>
+                            <input type="file" id="imageUpload" class="file-input" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="editor-actions">
+                    <div class="action-left">
+                        <button class="action-btn" id="undoBtn">Undo</button>
+                        <button class="action-btn" id="redoBtn">Redo</button>
+                        <button class="action-btn" id="clearBtn">Clear</button>
+                    </div>
+                    <div class="action-right">
+                        <button class="action-btn" id="addTextBtn">Add Text</button>
+                        <button class="action-btn" id="resizeBtn">Resize</button>
+                        <button class="action-btn primary" id="downloadBtn">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Profile Modal -->
+    <div class="profile-modal" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form class="profile-form" id="profileForm">
+                <div class="image-upload">
+                    <img src="https://via.placeholder.com/120" alt="Profile" class="image-preview" id="imagePreview">
+                    <label for="profileImage" class="upload-btn">Change Photo</label>
+                    <input type="file" id="profileImageUpload" class="file-input" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="usernameInput" name="username" value="itsnistav_" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullnameInput" name="fullname" value="Lavnish Kamboj" required>
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bioInput" name="bio" rows="3">Fortune favours the bold</textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="modal-btn primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Text Tool Modal -->
+    <div class="text-modal" id="textModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Text</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form class="modal-form" id="textForm">
+                <div class="form-group">
+                    <label for="textInput">Text</label>
+                    <input type="text" id="textInput" name="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="fontFamily">Font</label>
+                    <select id="fontFamily" name="fontFamily">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Courier New">Courier New</option>
+                        <option value="Verdana">Verdana</option>
+                        <option value="Georgia">Georgia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fontSize">Font Size</label>
+                    <input type="number" id="fontSize" name="fontSize" value="30" min="10" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="textColor">Text Color</label>
+                    <input type="color" id="textColor" name="textColor" value="#000000" class="color-picker">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn secondary close-text-modal">Cancel</button>
+                    <button type="submit" class="modal-btn primary">Add Text</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resize Modal -->
+    <div class="resize-modal" id="resizeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Resize Image</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form class="modal-form" id="resizeForm">
+                <div class="form-group">
+                    <label for="widthInput">Width (px)</label>
+                    <input type="number" id="widthInput" name="width" min="50" max="2000">
+                </div>
+                <div class="form-group">
+                    <label for="heightInput">Height (px)</label>
+                    <input type="number" id="heightInput" name="height" min="50" max="2000">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="aspectRatio" name="aspectRatio" checked>
+                        Maintain aspect ratio
+                    </label>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn secondary close-resize-modal">Cancel</button>
+                    <button type="submit" class="modal-btn primary">Apply</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const profileImage = document.getElementById('profileImage');
+        const profileUsername = document.getElementById('profileUsername');
+        const profileName = document.getElementById('profileName');
+        const profileBio = document.getElementById('profileBio');
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const profileModal = document.getElementById('profileModal');
+        const profileForm = document.getElementById('profileForm');
+        const imagePreview = document.getElementById('imagePreview');
+        const profileImageUpload = document.getElementById('profileImageUpload');
+        const usernameInput = document.getElementById('usernameInput');
+        const fullnameInput = document.getElementById('fullnameInput');
+        const bioInput = document.getElementById('bioInput');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const likedImagesGrid = document.getElementById('likedImagesGrid');
+        
+        // Editor Elements
+        const imageCanvas = document.getElementById('imageCanvas');
+        const canvasPlaceholder = document.getElementById('canvasPlaceholder');
+        const imageUpload = document.getElementById('imageUpload');
+        const brushSize = document.getElementById('brushSize');
+        const brushColor = document.getElementById('brushColor');
+        const filterOptions = document.querySelectorAll('.filter-option');
+        const undoBtn = document.getElementById('undoBtn');
+        const redoBtn = document.getElementById('redoBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const addTextBtn = document.getElementById('addTextBtn');
+        const resizeBtn = document.getElementById('resizeBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const textModal = document.getElementById('textModal');
+        const textForm = document.getElementById('textForm');
+        const closeTextModalBtns = document.querySelectorAll('.close-text-modal');
+        const resizeModal = document.getElementById('resizeModal');
+        const resizeForm = document.getElementById('resizeForm');
+        const closeResizeModalBtns = document.querySelectorAll('.close-resize-modal');
+        const widthInput = document.getElementById('widthInput');
+        const heightInput = document.getElementById('heightInput');
+        const aspectRatio = document.getElementById('aspectRatio');
+        
+        // Canvas Context
+        const ctx = imageCanvas ? imageCanvas.getContext('2d') : null;
+        
+        // State Variables
+        let currentImage = null;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let undoStack = [];
+        let redoStack = [];
+        let currentFilter = 'normal';
+        
+        // Load user profile data
+        function loadUserProfile() {
+            // Get user data from localStorage
+            const userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+            const profileData = JSON.parse(localStorage.getItem('profileData')) || {};
+            
+            // If no user is logged in, redirect to login page
+            if (!userData.username && !userData.name && !profileData.username) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Set default values if not available
+            const username = profileData.username || userData.username || 'itsnistav_';
+            const fullName = profileData.fullName || userData.name || 'Lavnish Kamboj';
+            const bio = profileData.bio || 'Fortune favours the bold';
+            const profileImageSrc = profileData.profileImage || 'https://via.placeholder.com/120';
+            
+            // Update profile display
+            profileUsername.textContent = username;
+            profileName.textContent = fullName;
+            profileBio.textContent = bio;
+            profileImage.src = profileImageSrc;
+            
+            // Also update the edit form fields
+            usernameInput.value = username;
+            fullnameInput.value = fullName;
+            bioInput.value = bio;
+            imagePreview.src = profileImageSrc;
+        }
+        
+        // Load liked images
+        function loadLikedImages() {
+            const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
+            
+            if (likedImages.length === 0) {
+                likedImagesGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="far fa-bookmark"></i>
+                        <p>Save photos and videos that you want to see again.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            likedImagesGrid.innerHTML = '';
+            
+            likedImages.forEach(image => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item';
+                item.innerHTML = `
+                    <img src="${image.url}" alt="${image.description || 'Liked image'}">
+                    <div class="overlay">
+                        <h3>${image.description || 'Untitled'}</h3>
+                        <p>By ${image.author || 'Unknown'}</p>
+                    </div>
+                    <button class="remove-btn" data-id="${image.id}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                likedImagesGrid.appendChild(item);
+                
+                // Add remove functionality
+                const removeBtn = item.querySelector('.remove-btn');
+                removeBtn.addEventListener('click', function() {
+                    const imageId = this.getAttribute('data-id');
+                    removeLikedImage(imageId);
+                });
+            });
+        }
+        
+        // Remove liked image
+        function removeLikedImage(imageId) {
+            const likedImages = JSON.parse(localStorage.getItem('likedImages')) || [];
+            const updatedImages = likedImages.filter(img => img.id !== imageId);
+            localStorage.setItem('likedImages', JSON.stringify(updatedImages));
+            loadLikedImages();
+        }
+        
+        // Initialize Editor
+        function initializeEditor() {
+            if (!imageCanvas || !ctx) return;
+            
+            // Initial canvas setup
+            ctx.fillStyle = '#f5f5f5';
+            ctx.fillRect(0, 0, imageCanvas.width, imageCanvas.height);
+            
+            // Save initial state
+            saveState();
+            
+            // Hide canvas initially
+            imageCanvas.style.display = 'none';
+            
+            // Image upload handler
+            imageUpload.addEventListener('change', handleImageUpload);
+            
+            // Drawing event listeners
+            imageCanvas.addEventListener('mousedown', startDrawing);
+            imageCanvas.addEventListener('mousemove', draw);
+            imageCanvas.addEventListener('mouseup', stopDrawing);
+            imageCanvas.addEventListener('mouseout', stopDrawing);
+            
+            // Tool event listeners
+            brushSize.addEventListener('input', updateBrushSize);
+            brushColor.addEventListener('input', updateBrushColor);
+            
+            // Filter options
+            filterOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    filterOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    applyFilter(this.textContent.toLowerCase());
+                });
+            });
+            
+            // Action buttons
+            undoBtn.addEventListener('click', undo);
+            redoBtn.addEventListener('click', redo);
+            clearBtn.addEventListener('click', clearCanvas);
+            downloadBtn.addEventListener('click', downloadImage);
+            
+            // Text and resize tools
+            addTextBtn.addEventListener('click', openTextModal);
+            resizeBtn.addEventListener('click', openResizeModal);
+            
+            // Modal forms
+            textForm.addEventListener('submit', addText);
+            resizeForm.addEventListener('submit', resizeImage);
+        }
+        
+        // Handle image upload
+        function handleImageUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    // Clear canvas
+                    ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+                    
+                    // Calculate dimensions to maintain aspect ratio
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    if (width > imageCanvas.width) {
+                        height = (imageCanvas.width / width) * height;
+                        width = imageCanvas.width;
+                    }
+                    
+                    if (height > imageCanvas.height) {
+                        width = (imageCanvas.height / height) * width;
+                        height = imageCanvas.height;
+                    }
+                    
+                    // Center the image
+                    const x = (imageCanvas.width - width) / 2;
+                    const y = (imageCanvas.height - height) / 2;
+                    
+                    // Draw image
+                    ctx.drawImage(img, x, y, width, height);
+                    
+                    // Save state
+                    saveState();
+                    
+                    // Show canvas, hide placeholder
+                    imageCanvas.style.display = 'block';
+                    canvasPlaceholder.style.display = 'none';
+                    
+                    // Store current image
+                    currentImage = {
+                        img: img,
+                        x: x,
+                        y: y,
+                        width: width,
+                        height: height
+                    };
+                    
+                    // Update resize inputs
+                    widthInput.value = Math.round(width);
+                    heightInput.value = Math.round(height);
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // Drawing functions
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+            saveState();
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.strokeStyle = brushColor.value;
+            ctx.lineWidth = brushSize.value;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        function updateBrushSize() {
+            // Nothing needed here, value is read directly from input
+        }
+        
+        function updateBrushColor() {
+            // Nothing needed here, value is read directly from input
+        }
+        
+        // Save canvas state for undo/redo
+        function saveState() {
+            undoStack.push(imageCanvas.toDataURL());
+            redoStack = [];
+        }
+        
+        // Undo function
+        function undo() {
+            if (undoStack.length <= 1) return;
+            
+            redoStack.push(undoStack.pop());
+            const imgData = undoStack[undoStack.length - 1];
+            loadImageFromDataURL(imgData);
+        }
+        
+        // Redo function
+        function redo() {
+            if (redoStack.length === 0) return;
+            
+            const imgData = redoStack.pop();
+            undoStack.push(imgData);
+            loadImageFromDataURL(imgData);
+        }
+        
+        // Load image from data URL
+        function loadImageFromDataURL(dataURL) {
+            const img = new Image();
+            img.onload = function() {
+                ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+                ctx.drawImage(img, 0, 0);
+            };
+            img.src = dataURL;
+        }
+        
+        // Clear canvas
+        function clearCanvas() {
+            if (confirm('Are you sure you want to clear the canvas?')) {
+                ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+                ctx.fillStyle = '#f5f5f5';
+                ctx.fillRect(0, 0, imageCanvas.width, imageCanvas.height);
+                saveState();
+                
+                // Show placeholder, hide canvas
+                if (currentImage) {
+                    imageCanvas.style.display = 'none';
+                    canvasPlaceholder.style.display = 'flex';
+                    currentImage = null;
+                }
+            }
+        }
+        
+        // Apply filter
+        function applyFilter(filter) {
+            if (!currentImage) return;
+            
+            // Restore original image
+            ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+            ctx.drawImage(
+                currentImage.img,
+                currentImage.x,
+                currentImage.y,
+                currentImage.width,
+                currentImage.height
+            );
+            
+            // Apply selected filter
+            currentFilter = filter;
+            
+            if (filter === 'normal') {
+                // No filter
+                return;
+            }
+            
+            const imageData = ctx.getImageData(0, 0, imageCanvas.width, imageCanvas.height);
+            const data = imageData.data;
+            
+            if (filter === 'grayscale') {
+                for (let i = 0; i < data.length; i += 4) {
+                    const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                    data[i] = avg;
+                    data[i + 1] = avg;
+                    data[i + 2] = avg;
+                }
+            } else if (filter === 'sepia') {
+                for (let i = 0; i < data.length; i += 4) {
+                    const r = data[i];
+                    const g = data[i + 1];
+                    const b = data[i + 2];
+                    
+                    data[i] = Math.min(255, (r * 0.393) + (g * 0.769) + (b * 0.189));
+                    data[i + 1] = Math.min(255, (r * 0.349) + (g * 0.686) + (b * 0.168));
+                    data[i + 2] = Math.min(255, (r * 0.272) + (g * 0.534) + (b * 0.131));
+                }
+            } else if (filter === 'vintage') {
+                for (let i = 0; i < data.length; i += 4) {
+                    data[i] = data[i] * 1.3;
+                    data[i + 2] = data[i + 2] * 0.7;
+                }
+            } else if (filter === 'blur') {
+                // Simple box blur (not efficient but works for demo)
+                const copy = new Uint8ClampedArray(data);
+                const size = 3; // Blur size
+                
+                for (let y = 0; y < imageCanvas.height; y++) {
+                    for (let x = 0; x < imageCanvas.width; x++) {
+                        let r = 0, g = 0, b = 0, a = 0, count = 0;
+                        
+                        // Sample the surrounding pixels
+                        for (let ky = -size; ky <= size; ky++) {
+                            for (let kx = -size; kx <= size; kx++) {
+                                const px = x + kx;
+                                const py = y + ky;
+                                
+                                if (px >= 0 && px < imageCanvas.width && py >= 0 && py < imageCanvas.height) {
+                                    const i = (py * imageCanvas.width + px) * 4;
+                                    r += copy[i];
+                                    g += copy[i + 1];
+                                    b += copy[i + 2];
+                                    a += copy[i + 3];
+                                    count++;
+                                }
+                            }
+                        }
+                        
+                        // Set the average color
+                        const i = (y * imageCanvas.width + x) * 4;
+                        data[i] = r / count;
+                        data[i + 1] = g / count;
+                        data[i + 2] = b / count;
+                        data[i + 3] = a / count;
+}
+                }
+            } else if (filter === 'sharpen') {
+                const copy = new Uint8ClampedArray(data);
+                const weights = [0, -1, 0, -1, 5, -1, 0, -1, 0]; // Sharpen kernel
+                
+                for (let y = 1; y < imageCanvas.height - 1; y++) {
+                    for (let x = 1; x < imageCanvas.width - 1; x++) {
+                        let r = 0, g = 0, b = 0;
+                        
+                        // Apply convolution
+                        for (let ky = -1; ky <= 1; ky++) {
+                            for (let kx = -1; kx <= 1; kx++) {
+                                const px = x + kx;
+                                const py = y + ky;
+                                const i = (py * imageCanvas.width + px) * 4;
+                                const weight = weights[(ky + 1) * 3 + (kx + 1)];
+                                
+                                r += copy[i] * weight;
+                                g += copy[i + 1] * weight;
+                                b += copy[i + 2] * weight;
+                            }
+                        }
+                        
+                        // Set the new color
+                        const i = (y * imageCanvas.width + x) * 4;
+                        data[i] = Math.min(255, Math.max(0, r));
+                        data[i + 1] = Math.min(255, Math.max(0, g));
+                        data[i + 2] = Math.min(255, Math.max(0, b));
+                    }
+                }
+            }
+            
+            ctx.putImageData(imageData, 0, 0);
+            saveState();
+        }
+        
+        // Text tool
+        function openTextModal() {
+            textModal.style.display = 'flex';
+        }
+        
+        function addText(e) {
+            e.preventDefault();
+            
+            const text = document.getElementById('textInput').value;
+            const fontFamily = document.getElementById('fontFamily').value;
+            const fontSize = document.getElementById('fontSize').value;
+            const textColor = document.getElementById('textColor').value;
+            
+            if (!text) return;
+            
+            saveState();
+            
+            ctx.font = `${fontSize}px ${fontFamily}`;
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.fillText(text, imageCanvas.width / 2, imageCanvas.height / 2);
+            
+            textModal.style.display = 'none';
+            textForm.reset();
+        }
+        
+        // Resize tool
+        function openResizeModal() {
+            if (!currentImage) return;
+            
+            widthInput.value = Math.round(currentImage.width);
+            heightInput.value = Math.round(currentImage.height);
+            resizeModal.style.display = 'flex';
+        }
+        
+        function resizeImage(e) {
+            e.preventDefault();
+            
+            if (!currentImage) return;
+            
+            const newWidth = parseInt(widthInput.value);
+            const newHeight = parseInt(heightInput.value);
+            
+            if (isNaN(newWidth) || isNaN(newHeight) || newWidth <= 0 || newHeight <= 0) {
+                alert('Please enter valid dimensions');
+                return;
+            }
+            
+            saveState();
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);
+            
+            // Center the resized image
+            const x = (imageCanvas.width - newWidth) / 2;
+            const y = (imageCanvas.height - newHeight) / 2;
+            
+            // Draw resized image
+            ctx.drawImage(currentImage.img, x, y, newWidth, newHeight);
+            
+            // Update current image
+            currentImage.x = x;
+            currentImage.y = y;
+            currentImage.width = newWidth;
+            currentImage.height = newHeight;
+            
+            // Apply current filter if any
+            if (currentFilter !== 'normal') {
+                applyFilter(currentFilter);
+            }
+            
+            resizeModal.style.display = 'none';
+        }
+        
+        // Handle aspect ratio
+        widthInput.addEventListener('input', function() {
+            if (aspectRatio.checked && currentImage) {
+                const ratio = currentImage.height / currentImage.width;
+                heightInput.value = Math.round(this.value * ratio);
+            }
+        });
+        
+        heightInput.addEventListener('input', function() {
+            if (aspectRatio.checked && currentImage) {
+                const ratio = currentImage.width / currentImage.height;
+                widthInput.value = Math.round(this.value * ratio);
+            }
+        });
+        
+        // Download image
+        function downloadImage() {
+            const dataURL = imageCanvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = dataURL;
+            link.download = 'edited-image.png';
+            link.click();
+        }
+        
+        // Tab switching
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Update active tab button
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show selected tab content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabId) {
+                        content.classList.add('active');
+                    }
+                });
+                
+                // Initialize editor if editor tab is selected
+                if (tabId === 'editor-tab') {
+                    // Initialize editor if not already done
+                }
+            });
+        });
+        
+        // Edit profile modal
+        editProfileBtn.addEventListener('click', function() {
+            profileModal.style.display = 'flex';
+        });
+        
+        // Close modals
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const modal = this.closest('.profile-modal, .text-modal, .resize-modal');
+                if (modal) modal.style.display = 'none';
+            });
+        });
+        
+        closeTextModalBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                textModal.style.display = 'none';
+            });
+        });
+        
+        closeResizeModalBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                resizeModal.style.display = 'none';
+            });
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            if (e.target === profileModal) profileModal.style.display = 'none';
+            if (e.target === textModal) textModal.style.display = 'none';
+            if (e.target === resizeModal) resizeModal.style.display = 'none';
+        });
+        
+        // Profile image upload preview
+        profileImageUpload.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Update the preview image in the modal
+                    imagePreview.src = e.target.result;
+                    // Update the main profile image on the dashboard
+                    profileImage.src = e.target.result;
+
+                    // Save the updated image to localStorage
+                    const profileData = JSON.parse(localStorage.getItem('profileData')) || {};
+                    profileData.profileImage = e.target.result;
+                    localStorage.setItem('profileData', JSON.stringify(profileData));
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        // Trigger file input when "Change Photo" button is clicked
+        document.querySelector('label[for="profileImage"]').addEventListener('click', function() {
+            profileImageUpload.click();
+        });
+        
+        // Save profile changes
+        profileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = usernameInput.value;
+            const fullName = fullnameInput.value;
+            const bio = bioInput.value;
+            
+            // Save to localStorage
+            const profileData = {
+                username,
+                fullName,
+                bio,
+                profileImage: imagePreview.src
+            };
+            
+            localStorage.setItem('profileData', JSON.stringify(profileData));
+            
+            // Update UI
+            profileUsername.textContent = username;
+            profileName.textContent = fullName;
+            profileBio.textContent = bio;
+            profileImage.src = imagePreview.src;
+            
+            // Close modal
+            profileModal.style.display = 'none';
+        });
+        
+        // Cancel button functionality
+        cancelBtn.addEventListener('click', function() {
+            profileModal.style.display = 'none';
+        });
+        
+        // Dark mode toggle
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            // Save preference to localStorage
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            
+            // Update icon
+            this.innerHTML = isDarkMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+        
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        // Logout functionality
+        logoutBtn.addEventListener('click', function() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        });
+        
+        // Initialize
+        loadUserProfile();
+        loadLikedImages();
+        initializeEditor();
+    </script>
+</body>
+</html>

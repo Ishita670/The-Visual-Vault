@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Visual Vault- Image Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <h1>The Visual Vault</h1>
+                <!-- <img src="assets/camera-icon.svg" alt="Logo" class="logo-icon"> -->
+            </div>
+            <nav>
+                <input type="checkbox" id="sidebar-active">
+                <button class="open-sidebar-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="links-container">
+                    <button class="close-sidebar-button">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="socials.html">Socials</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="dashboard.html" class="user-profile" style="display: none;">Dashboard</a></li>
+                    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon"></i>
+                      </button>
+                      
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Beautiful Images</h1>
+            <p>Find the perfect high-quality images for your projects</p>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-input" placeholder="Search for images...">
+                <button id="searchButton" class="search-button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+        <div class="category-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="nature">Nature</button>
+            <button class="filter-btn" data-filter="architecture">Architecture</button>
+            <button class="filter-btn" data-filter="travel">Travel</button>
+            <button class="filter-btn" data-filter="animals">Animals</button>
+            <button class="filter-btn" data-filter="food">Food</button>
+            <button class="filter-btn" data-filter="people">People</button>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div id="imageGrid" class="image-grid">
+            <!-- Images will be loaded here -->
+        </div>
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+        <button id="loadMoreBtn" class="load-more-btn">Load More</button>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <button id="lightboxClose" class="lightbox-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="lightbox-image-container">
+                <img id="lightboxImage" src="" alt="Lightbox Image">
+                <button id="lightboxPrev" class="lightbox-nav prev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="lightboxNext" class="lightbox-nav next">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="lightbox-details">
+                <div class="lightbox-info">
+                    <h3 id="lightboxTitle">Image Title</h3>
+                    <p id="lightboxAuthor">By Photographer</p>
+                </div>
+                <div class="lightbox-actions">
+                    <a id="downloadLink" href="#" class="action-btn" download>
+                        <i class="fas fa-download"></i>
+                    </a>
+                    <button class="action-btn like-btn" onclick="toggleLike(currentImages[currentLightboxIndex].id)">
+                        <i class="far fa-heart"></i>
+                    </button>
+                    <button class="action-btn share-btn">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <script src="script.js"></script>
+</body>
+</html>
